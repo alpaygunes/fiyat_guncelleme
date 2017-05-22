@@ -1,4 +1,3 @@
-admin
 catalog
 image
 journal*
@@ -25,3 +24,4 @@ pinfo.php
 !/admin/controller/ortakpanel/
 !/admin/view/template/ortakpanel/
 .idea/
+!/admin/controller/common/
