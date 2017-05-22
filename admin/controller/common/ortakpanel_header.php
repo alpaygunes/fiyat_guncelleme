@@ -133,6 +133,6 @@ class ControllerCommonOrtakpanelHeader extends Controller {
 			}
 		}
 
-		return $this->load->view('common/header.tpl', $data);
+		return $this->load->view('ortakpanel/ortakpanel_header.tpl', $data);
 	}
 }

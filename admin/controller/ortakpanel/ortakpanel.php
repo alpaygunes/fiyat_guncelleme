@@ -19,9 +19,9 @@ class ControllerOrtakpanelOrtakpanel extends Controller
 
         $data['baslik'] = "Ortak Panel";
 
-        //$data['header'] = $this->load->controller('common/ortakpanel_header.tpl');
-        //$data['column_left'] = $this->load->controller('common/ortakpanel_left.tpl');
-        //$data['footer'] = $this->load->controller('common/ortakpanel_footer.tpl');
+        $data['header'] = $this->load->controller('common/ortakpanel_header');
+        $data['column_left'] = $this->load->controller('common/ortakpanel_left');
+        $data['footer'] = $this->load->controller('common/ortakpanel_footer');
         $this->response->setOutput($this->load->view('ortakpanel/ortakpanel_giris.tpl', $data));
     }
 }
