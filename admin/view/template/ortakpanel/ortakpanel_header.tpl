@@ -12,15 +12,6 @@
 <?php } ?>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 <script type="text/javascript" src="view/javascript/jquery/jquery-2.1.1.min.js"></script>
-
-
-
-  <!-------------- alpaygunes -------------  bootstraptan önce olması lazımış          -->
-  <script src="view/javascript/admin_tasarla/jquery-ui.js"></script>
-  <!-------------- alpaygunes --------------->
-
-
-
 <script type="text/javascript" src="view/javascript/bootstrap/js/bootstrap.min.js"></script>
 <link href="view/stylesheet/bootstrap.css" type="text/css" rel="stylesheet" />
 <link href="view/javascript/font-awesome/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
@@ -41,51 +32,6 @@
 <script type="text/javascript" src="<?php echo $script; ?>"></script>
 <?php } ?>
 
-
-  <!--   ---------------      alpaygunes         ------------------ -->
-
-  <script type="text/javascript" src="view/javascript/admin_tasarla/admin_tasarla.js"></script>
-  <link type="text/css" href="view/stylesheet/admin_tasarla/admin_tasarla.css" rel="stylesheet" media="screen" />
-  <link type="text/css" href="view/stylesheet/admin_tasarla/kendin_tasarla_onyuz.css" rel="stylesheet" media="screen" />
-
-  <!--   curve text için -->
-  <script type="text/javascript" src="view/javascript/admin_tasarla/curve_text.js"></script>
-
-  <!--   content render için -->
-  <script type="text/javascript" src="view/javascript/admin_tasarla/content_render_admin.js"></script>
-  <script type="text/javascript" src="view/javascript/admin_tasarla/kirpici_admin.js"></script>
-  <script type="text/javascript" src="view/javascript/admin_tasarla/resim_ekleme_admin.js"></script>
-  <script type="text/javascript" src="view/javascript/admin_tasarla/siparis_text_duzenle.js"></script>
-
-
-  <!--   Dragable -->
-
-
-
-
-  <!-- resize için gerkli -->
-  <link rel="stylesheet" href="view/javascript/admin_tasarla/jquery-ui.css">
-
-  <!--   resizable -->
-  <script src="view/javascript/admin_tasarla/jquery-ui-rotatable-master/jquery.ui.rotatable.js"></script>
-  <link rel="stylesheet" href="view/javascript/admin_tasarla/jquery-ui-rotatable-master/jquery.ui.rotatable.css">
-
-  <!--   dokunmatik ekranlar için -->
-  <script src="view/javascript/admin_tasarla/jquery.ui.touch-punch.min.js"></script>
-
-
-  <!--   color picker -->
-
-  <script type="text/javascript" src="view/javascript/admin_tasarla/farbtastic/farbtastic.js"></script>
-  <link rel="stylesheet" href="view/javascript/admin_tasarla/farbtastic/farbtastic.css" type="text/css" />
-
-  <!--   javascript objesini json yapan fonsiyon
-
-  <script type="text/javascript" src="view/javascript/JSON-js-master/"></script> -->
-
-  <!----                     alpaygunes son---------- -----------  -->
-
-
 </head>
 <body>
 <div id="container">
@@ -96,6 +42,8 @@
     <?php } ?>
     <a href="<?php echo $home; ?>" class="navbar-brand"><img src="view/image/logo.png" alt="<?php echo $heading_title; ?>" title="<?php echo $heading_title; ?>" /></a></div>
   <?php if ($logged) { ?>
+
+
   <ul class="nav pull-right">
     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><span class="label label-danger pull-left"><?php echo $alerts; ?></span> <i class="fa fa-bell fa-lg"></i></a>
       <ul class="dropdown-menu dropdown-menu-right alerts-dropdown">
@@ -133,3 +81,4 @@
   </ul>
   <?php } ?>
 </header>
+
