@@ -106,3 +106,17 @@
 /admin/model/report/
 /admin/model/sale/
 /admin/model/user/
+!/admin/controller/common/
+/admin/controller/common/sass.php
+/admin/controller/common/dashboard.php
+/admin/controller/common/column_left.php
+/admin/controller/common/login.php
+/admin/controller/common/header.php
+/admin/controller/common/filemanager.php
+/admin/controller/common/stats.php
+/admin/controller/common/reset.php
+/admin/controller/common/footer.php
+/admin/controller/common/logout.php
+/admin/controller/common/profile.php
+/admin/controller/common/menu.php
+/admin/controller/common/forgotten.php

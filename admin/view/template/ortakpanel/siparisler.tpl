@@ -154,7 +154,7 @@
     </div>
     <script type="text/javascript"><!--
         $('#button-filter').on('click', function() {
-            url = 'index.php?route=sale/order&token=<?php echo $token; ?>';
+            url = 'index.php?route=ortakpanel/siparisler&token=<?php echo $token; ?>';
 
             var filter_order_id = $('input[name=\'filter_order_id\']').val();
 
@@ -238,9 +238,9 @@
         $('input[name^=\'selected\']:first').trigger('change');
 
         // Login to the API
-        var token = '';
+        //var token = '';
 
-        $.ajax({
+        /*$.ajax({
             url: '<?php echo $store; ?>index.php?route=api/login',
             type: 'post',
             data: 'key=<?php echo $api_key; ?>',
@@ -267,8 +267,9 @@
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
             }
         });
+        */
 
-        $(document).delegate('#button-ip-add', 'click', function() {
+        /*$(document).delegate('#button-ip-add', 'click', function() {
             $.ajax({
                 url: 'index.php?route=user/api/addip&token=<?php echo $token; ?>&api_id=<?php echo $api_id; ?>',
                 type: 'post',
@@ -295,7 +296,7 @@
                     alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
                 }
             });
-        });
+        });*/
 
         $('button[id^=\'button-delete\']').on('click', function(e) {
             if (confirm('<?php echo $text_confirm; ?>')) {
