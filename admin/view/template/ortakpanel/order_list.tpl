@@ -134,8 +134,8 @@
                                         <td class="text-left"><?php echo $order['date_modified']; ?></td>
                                         <td class="text-right">
                                             <a href="<?php echo $order['view'];?><?php echo '&siparis_sitesi='.$order['siparis_sitesi']; ?>" data-toggle="tooltip" title="<?php echo $button_view; ?>" class="btn btn-info"><i class="fa fa-eye"></i></a>
-                                            <a href="<?php echo $order['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-                                            <button type="button" value="<?php echo $order['order_id']; ?>" id="button-delete<?php echo $order['order_id']; ?>" data-loading-text="<?php echo $text_loading; ?>" data-toggle="tooltip" title="<?php echo $button_delete; ?>" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                            <a href="<?php echo $order['edit']; ?><?php echo '&siparis_sitesi='.$order['siparis_sitesi']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                                            <button type="button" <?php echo 'siparis_sitesi='.$order['siparis_sitesi']; ?> value="<?php echo $order['order_id']; ?>" id="button-delete<?php echo $order['order_id']; ?>" data-loading-text="<?php echo $text_loading; ?>" data-toggle="tooltip" title="<?php echo $button_delete; ?>" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
                                         </td>
                                     </tr>
                                 <?php } ?>
