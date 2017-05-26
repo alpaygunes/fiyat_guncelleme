@@ -50,30 +50,22 @@ class ModelOrtakpanelSiparisler extends Model
         return $data;
     }
 
-    BURADA KALDIN
-ORDER İN İÇİNE SİPARİŞİN SİTESİNİN NADRESİNİ KOYDUN
-ŞİMDİ ONU SAYFAYAKİ İLGİİ YERLERDE KULLAN.
-MESALA ÜRÜN İNFOSU YADA ÖN İZLEMESİ SIRASINDA HANGİ STEDEN GELDİĞİ BİLİNMELİKİ İNFO O SİTEDEN İSTENSİN.
-ŞUAN İNFOYA TIKLANINCA DATALAR GELMİYOR . SENİN GÖREVİN ORDERDEKİ SİTEYİDE KULLANARAK İNFO İSTENDİĞİNDE HEDEFTEN ÇEKMEK
-
     function info($gets){
         //gelen GET leri bayi siteye göndermek içn düzenle
         $rqst   = "";
         foreach ($gets as $key=>$value){
             if($key!='route'){
                 if($key!='token'){
-                    $rqst .= "&$key=$value";
+                    if($key!='siparis_sitesi'){
+                        $rqst .= "&$key=$value";
+                    }
                 }
             }
         }
-        $url_eki        = "/index.php?route=ortakpanel_bayi/order/&yeni_token=".$this->session->data['token'];
+        $url_eki        = "/index.php?route=ortakpanel_bayi/order/info&yeni_token=".$this->session->data['token'];
         $url_eki        .=$rqst;
-        $bayi_sitesi    = $gets["bayi_sitesi"];
+        $bayi_sitesi    = $gets["siparis_sitesi"];
         $ch         = curl_init();
-
-//      BURADA KALDIN
-//      İNFO İÇN TIKLALAN DÜĞME BAYİ SİTESİNİDE GÖNDERMELİ.
-
         curl_setopt($ch, CURLOPT_URL,$bayi_sitesi.$url_eki);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $data         = curl_exec($ch);
@@ -92,14 +84,6 @@ MESALA ÜRÜN İNFOSU YADA ÖN İZLEMESİ SIRASINDA HANGİ STEDEN GELDİĞİ Bİ
                 $data[$key]=preg_replace($şablon, $matches[0][0],$value );
             }
         }
-
-        foreach ($data['orders'][0] as $key=>$value){
-            if(preg_match($şablon, $value)){
-                $data['orders'][0][$key]=preg_replace($şablon, $matches[0][0],$value );
-            }
-        }
-
-
         return $data;
     }
 

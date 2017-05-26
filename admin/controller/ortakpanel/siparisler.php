@@ -38,6 +38,6 @@ class ControllerOrtakpanelSiparisler extends Controller
         $data['column_left'] = $this->load->controller('common/ortakpanel_left');
         $data['footer'] = $this->load->controller('common/ortakpanel_footer');
 
-        $this->response->setOutput($this->load->view('ortakpanel/siparisler.tpl', $data));
+        $this->response->setOutput($this->load->view('ortakpanel/order_info.tpl', $data));
     }
 }
