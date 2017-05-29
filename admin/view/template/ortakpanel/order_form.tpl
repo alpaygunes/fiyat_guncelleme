@@ -956,7 +956,6 @@ var token = '';
 
 // Login to the API
 $.ajax({
-    BURADA KALDIN
 	url: $('select[name=\'store\'] option:selected').val() + 'index.php?route=api/login',
 	type: 'post',
 	data: 'key=<?php echo $api_key; ?>',
@@ -985,6 +984,12 @@ $.ajax({
 		alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 	}
 });
+
+YUKARDA TOKEN BURDA APİ KEY
+    HEPSİ BAYİ STİESİNDEN OLMALI.
+            ADMİNDEKİ USER ALTINDAKİ  APİ Yİ VE BAYİ STİESİNDE ORTAK PNEL CONTROLERİNE VE MODELİNE AL. GERELİ DEĞİLİKİĞİ YAKİ
+    DOĞRU CEVAPLARI VERİP APİ VE TOKEN ALA BİLRİSN.
+
 
 $(document).delegate('#button-ip-add', 'click', function() {
 	$.ajax({
@@ -1337,9 +1342,10 @@ $('select[name=\'customer_group_id\']').on('change', function() {
 
 $('select[name=\'customer_group_id\']').trigger('change');
 
+
 $('#button-customer').on('click', function() {
 	$.ajax({
-		url: $('select[name=\'store\'] option:selected').val() + 'index.php?route=api/customer&token=' + token,
+		url: 'http://localhost/fiyat_guncelleme/index.php?route=api/customer&token=' + token,
 		type: 'post',
 		data: $('#tab-customer input[type=\'text\'], #tab-customer input[type=\'hidden\'], #tab-customer input[type=\'radio\']:checked, #tab-customer input[type=\'checkbox\']:checked, #tab-customer select, #tab-customer textarea'),
 		dataType: 'json',

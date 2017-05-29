@@ -57,4 +57,11 @@ class ControllerOrtakpanelSiparisler extends Controller
 
         $this->response->setOutput($this->load->view('ortakpanel/order_form.tpl', $data));
     }
+
+    function history(){
+        $data           = array();
+        $this->load->model('ortakpanel/siparisler');
+        $data = $this->model_ortakpanel_siparisler->history($this->request->get);
+        $this->response->setOutput($data);
+    }
 }

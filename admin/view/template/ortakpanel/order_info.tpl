@@ -545,7 +545,10 @@ $('#history').delegate('.pagination a', 'click', function(e) {
 	$('#history').load(this.href);
 });
 
-$('#history').load('index.php?route=sale/order/history&token=<?php echo $token; ?>&order_id=<?php echo $order_id; ?>');
+
+
+siparis_sitesi = '<?php echo $siparis_sitesi;?>';
+$('#history').load('index.php?route=ortakpanel/siparisler/history&siparis_sitesi='+siparis_sitesi+'&token=<?php echo $token; ?>&order_id=<?php echo $order_id; ?>');
 
 $('#button-history').on('click', function() {
 	if (typeof verifyStatusChange == 'function'){
