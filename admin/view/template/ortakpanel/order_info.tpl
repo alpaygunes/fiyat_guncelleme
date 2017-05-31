@@ -561,26 +561,36 @@ $('#button-history').on('click', function() {
 		addOrderInfo();
 	}
 
-	$.ajax({
-		url: '<?php echo $store_url; ?>index.php?route=api/order/history&token=' + token + '&order_id=<?php echo $order_id; ?>',
-		type: 'post',
+    //alert(1);
+	/*bayi siteisndeki api/order/history yi ortakpanel_bayi içine almamız gereke bilir . orda sessiondan bahsediyor falan
+  yada  addOrderHistory fonsiyonu direk kullnıla bilir
+    bayi sitesidne catalog/controller/api/order.php 767 de*/
+	//alert('index.php?route=ortakpanel/apiorder/history&siparis_sitesi='+siparis_sitesi+'&token=<?php echo $token; ?>&order_id=<?php echo $order_id; ?>')
+    //url: '<?php echo $store_url; ?>index.php?route=api/order/history&token=' + token + '&order_id=<?php echo $order_id; ?>',
+    $.ajax({
+        url: 'index.php?route=ortakpanel/apiorder/history&siparis_sitesi='+siparis_sitesi+'&token=<?php echo $token; ?>&order_id=<?php echo $order_id; ?>',
+        type: 'post',
 		dataType: 'json',
 		data: 'order_status_id=' + encodeURIComponent($('select[name=\'order_status_id\']').val()) + '&notify=' + ($('input[name=\'notify\']').prop('checked') ? 1 : 0) + '&override=' + ($('input[name=\'override\']').prop('checked') ? 1 : 0) + '&append=' + ($('input[name=\'append\']').prop('checked') ? 1 : 0) + '&comment=' + encodeURIComponent($('textarea[name=\'comment\']').val()),
 		beforeSend: function() {
+            //alert(0);
 			$('#button-history').button('loading');
 		},
 		complete: function() {
 			$('#button-history').button('reset');
 		},
 		success: function(json) {
+            console.log(json)
 			$('.alert').remove();
 
 			if (json['error']) {
+                //alert(2);
 				$('#history').before('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 			}
 
 			if (json['success']) {
-				$('#history').load('index.php?route=sale/order/history&token=<?php echo $token; ?>&order_id=<?php echo $order_id; ?>');
+                //alert(3);
+				$('#history').load('index.php?route=ortakpanel/siparisler/history&siparis_sitesi='+siparis_sitesi+'&token=<?php echo $token; ?>&order_id=<?php echo $order_id; ?>');
 
 				$('#history').before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 
@@ -588,6 +598,7 @@ $('#button-history').on('click', function() {
 			}
 		},
 		error: function(xhr, ajaxOptions, thrownError) {
+           // console.log(xhr);
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
@@ -608,10 +619,10 @@ function changeStatus(){
 }
 
 function addOrderInfo(){
-	var status_id = $('select[name="order_status_id"]').val();
-
-	$.ajax({
-		url: 'index.php?route=extension/openbay/addorderinfo&token=<?php echo $token; ?>&order_id=<?php echo $order_id; ?>&status_id=' + status_id,
+    var status_id = $('select[name="order_status_id"]').val();
+    //url: 'index.php?route=extension/openbay/addorderinfo&token=<?php echo $token; ?>&order_id=<?php echo $order_id; ?>&status_id=' + status_id,
+    $.ajax({
+		url: 'index.php?route=ortakpanel/openbay/addorderinfo&siparis_sitesi='+siparis_sitesi+'&token=<?php echo $token; ?>&order_id=<?php echo $order_id; ?>&status_id=' + status_id,
 		type: 'post',
 		dataType: 'html',
 		data: $(".openbay-data").serialize()
