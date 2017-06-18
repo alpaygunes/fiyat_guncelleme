@@ -14,7 +14,7 @@ class ModelOrtakpanelSiparisler extends Model
                 }
             }
         }
-        $url_eki        = "/index.php?route=ortakpanel_bayi/order/&yeni_token=".$this->session->data['token'];
+        $url_eki        = "index.php?route=ortakpanel_bayi/order/&yeni_token=".$this->session->data['token'];
         $url_eki        .=$rqst;
         foreach ($siteler as $site){
             $ch         = curl_init();
@@ -62,7 +62,7 @@ class ModelOrtakpanelSiparisler extends Model
                 }
             }
         }
-        $url_eki        = "/index.php?route=ortakpanel_bayi/order/info&yeni_token=".$this->session->data['token'];
+        $url_eki        = "index.php?route=ortakpanel_bayi/order/info&yeni_token=".$this->session->data['token'];
         $url_eki        .=$rqst;
         $bayi_sitesi    = $gets["siparis_sitesi"];
         $ch         = curl_init();
@@ -84,6 +84,17 @@ class ModelOrtakpanelSiparisler extends Model
                 $data[$key]=preg_replace($şablon, $matches[0][0],$value );
             }
         }
+
+        // $data[product] dizisindeki url lerid eğiştirelim
+        foreach ($data['products'] as $key=>$value){
+            if(preg_match($şablon, $value['href'])){
+                $data['products'][$key]['href']  = preg_replace($şablon, $matches[0][0],$value['href'] );
+            }
+            if(preg_match($şablon, $value['tasarim'])){
+                $data['products'][$key]['tasarim'] = '?route=ortakpanel/siparisler/getTasarimById&siparis_sitesi='.$data['siparis_sitesi'].'&orjinal_url='.$value['tasarim'];
+            }
+        }
+
         return $data;
     }
 
@@ -99,7 +110,7 @@ class ModelOrtakpanelSiparisler extends Model
                 }
             }
         }
-        $url_eki        = "/index.php?route=ortakpanel_bayi/order/edit&yeni_token=".$this->session->data['token'];
+        $url_eki        = "index.php?route=ortakpanel_bayi/order/edit&yeni_token=".$this->session->data['token'];
         $url_eki        .=$rqst;
         $bayi_sitesi    = $gets["siparis_sitesi"];
         $ch         = curl_init();
@@ -147,5 +158,34 @@ class ModelOrtakpanelSiparisler extends Model
         return $data;
     }
 
+    function getTasarimById($gets){
+        //gelen GET leri bayi siteye göndermek içn düzenle
+        $rqst   = "";
+        foreach ($gets as $key=>$value){
+            if($key!='route'){
+                if($key!='token'){
+                    if($key!='orjinal_url') {
+                        if ($key != 'siparis_sitesi') {
+                            $rqst .= "&$key=$value";
+                        }
+                    }
+                }
+            }
+        }
 
+        $bayi_sitesi    = $gets["siparis_sitesi"];
+        $url_eki        = "index.php?route=ortakpanel_bayi/order/getTasarimById&yeni_token=".$this->session->data['token'];
+        $bayi_sitesi   .= $url_eki.$rqst;
+
+        $ch             = curl_init();
+        curl_setopt($ch, CURLOPT_URL,$bayi_sitesi);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $data           = curl_exec($ch);
+        curl_close($ch);
+        $bom = pack('H*','EFBBBF');
+        $data = preg_replace("/^$bom/", '', $data);
+        $data = preg_replace("/^$bom/", '', $data);
+        $data = json_decode($data,TRUE);
+        return $data;
+    }
 }

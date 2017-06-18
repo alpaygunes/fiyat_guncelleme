@@ -113,6 +113,7 @@
                                     <?php } else { ?>
                                         <a href="<?php echo $sort_date_modified; ?>"><?php echo $column_date_modified; ?></a>
                                     <?php } ?></td>
+                                <td class="text-right">Mağaza</td>
                                 <td class="text-right"><?php echo $column_action; ?></td>
                             </tr>
                             </thead>
@@ -132,6 +133,7 @@
                                         <td class="text-right"><?php echo $order['total']; ?></td>
                                         <td class="text-left"><?php echo $order['date_added']; ?></td>
                                         <td class="text-left"><?php echo $order['date_modified']; ?></td>
+                                        <td class="text-left"><?php echo $order['siparis_sitesi']; ?></td>
                                         <td class="text-right">
                                             <a href="<?php echo $order['view'];?><?php echo '&siparis_sitesi='.$order['siparis_sitesi']; ?>" data-toggle="tooltip" title="<?php echo $button_view; ?>" class="btn btn-info"><i class="fa fa-eye"></i></a>
                                             <a href="<?php echo $order['edit']; ?><?php echo '&siparis_sitesi='.$order['siparis_sitesi']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
