@@ -51,7 +51,7 @@
             <tr>
               <td style="width: 1%;"><button data-toggle="tooltip" title="<?php echo $text_customer; ?>" class="btn btn-info btn-xs"><i class="fa fa-user fa-fw"></i></button></td>
               <td><?php if ($customer) { ?>
-                <a href="<?php echo $customer; ?>" target="_blank"><?php echo $firstname; ?> <?php echo $lastname; ?></a>
+                <a href="<?php echo $customer; ?>" target="_blank" id="musteri-bilgileri"><?php echo $firstname; ?> <?php echo $lastname; ?></a>
                 <?php } else { ?>
                 <?php echo $firstname; ?> <?php echo $lastname; ?>
                 <?php } ?></td>
@@ -561,12 +561,6 @@ $('#button-history').on('click', function() {
 		addOrderInfo();
 	}
 
-    //alert(1);
-	/*bayi siteisndeki api/order/history yi ortakpanel_bayi içine almamız gereke bilir . orda sessiondan bahsediyor falan
-  yada  addOrderHistory fonsiyonu direk kullnıla bilir
-    bayi sitesidne catalog/controller/api/order.php 767 de*/
-	//alert('index.php?route=ortakpanel/apiorder/history&siparis_sitesi='+siparis_sitesi+'&token=<?php echo $token; ?>&order_id=<?php echo $order_id; ?>')
-    //url: '<?php echo $store_url; ?>index.php?route=api/order/history&token=' + token + '&order_id=<?php echo $order_id; ?>',
     $.ajax({
         url: 'index.php?route=ortakpanel/apiorder/history&siparis_sitesi='+siparis_sitesi+'&token=<?php echo $token; ?>&order_id=<?php echo $order_id; ?>',
         type: 'post',
@@ -636,6 +630,19 @@ $(document).ready(function() {
 $('select[name="order_status_id"]').change(function(){
 	changeStatus();
 });
+
+
+$('#musteri-bilgileri').click(function (e) {
+    var url_string  = $(this).attr('href');
+    var url         = new URL(url_string);
+    var customer_id = url.searchParams.get("customer_id");
+    var url         = 'index.php?route=ortakpanel/customer/edit&siparis_sitesi='
+                    +siparis_sitesi+'&token=<?php echo $token; ?>&customer_id='+customer_id;
+    window.open(url, '_blank');
+    e.preventDefault();
+    return false;
+})
+
 //--></script>
 </div>
 <?php echo $footer; ?>

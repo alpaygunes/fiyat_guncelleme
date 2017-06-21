@@ -1,6 +1,4 @@
-
 /config.php
-/calistir.php2
 /index.php
 /php.ini
 /crossdomain.xml
@@ -120,3 +118,4 @@
 /admin/controller/common/profile.php
 /admin/controller/common/menu.php
 /admin/controller/common/forgotten.php
+.idea/

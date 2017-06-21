@@ -16,18 +16,21 @@ class ModelOrtakpanelSiparisler extends Model
         }
         $url_eki        = "index.php?route=ortakpanel_bayi/order/&yeni_token=".$this->session->data['token'];
         $url_eki        .=$rqst;
+        $data1['orders']    = array();
         foreach ($siteler as $site){
             $ch         = curl_init();
             curl_setopt($ch, CURLOPT_URL,"http://".$site.$url_eki);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $data         = curl_exec($ch);
+            $data0         = curl_exec($ch);
             curl_close($ch);
             $bom = pack('H*','EFBBBF');
-            $data = preg_replace("/^$bom/", '', $data);
-            $data = preg_replace("/^$bom/", '', $data);
-            $data = json_decode($data,TRUE);
+            $data0 = preg_replace("/^$bom/", '', $data0);
+            $data0 = preg_replace("/^$bom/", '', $data0);
+            $data0 = json_decode($data0,TRUE);
+            $data1['orders'] = array_merge($data0['orders'],$data1['orders']);
         }
-
+        $data = $data0;
+        $data['orders']=$data1['orders'];
 
         //datalarin içindeki linklerde bulunan bayi site urlelerini değiştir.
         $şablon = '/:\/\/(.*)(route)/i';
