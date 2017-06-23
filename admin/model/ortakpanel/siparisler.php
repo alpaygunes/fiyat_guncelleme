@@ -19,7 +19,7 @@ class ModelOrtakpanelSiparisler extends Model
         $data1['orders']    = array();
         foreach ($siteler as $site){
             $ch         = curl_init();
-            curl_setopt($ch, CURLOPT_URL,"http://".$site.$url_eki);
+            curl_setopt($ch, CURLOPT_URL,$site.$url_eki);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             $data0         = curl_exec($ch);
             curl_close($ch);
