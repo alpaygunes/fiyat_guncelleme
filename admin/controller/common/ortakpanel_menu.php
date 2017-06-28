@@ -8,6 +8,7 @@ class ControllerCommonOrtakpanelMenu extends Controller {
         $data['siparis_listele']    = $this->url->link('ortakpanel/siparisler', 'token=' . $this->session->data['token'], 'SSL');
         $data['fiyat_guncelle']     = $this->url->link('ortakpanel/fiyatguncelle', 'token=' . $this->session->data['token'], 'SSL');
         $data['urunleri_dagit']     = $this->url->link('senkronizasyon/start', 'token=' . $this->session->data['token'], 'SSL');
+        $data['siteler']            = $this->url->link('ortakpanel/siteler', 'token=' . $this->session->data['token'], 'SSL');
 
         return $this->load->view('ortakpanel/ortakpanel_menu.tpl', $data);
 	}

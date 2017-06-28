@@ -13,6 +13,7 @@
       <li><a href="<?php echo $siparis_listele; ?>"><?php echo $text_siparis_listele;?></a></li>
       <li><a href="<?php echo $fiyat_guncelle; ?>"><?php echo $text_fiyat_guncelle;?></a></li>
       <li><a href="<?php echo $urunleri_dagit; ?>"><?php echo $text_urunleri_dagit;?></a></li>
+      <li><a href="<?php echo $siteler; ?>">Bayi Siteleri</a></li>
 
     </ul>
   </li>

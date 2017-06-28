@@ -31,7 +31,11 @@ class ControllerOrtakpanelFiyatguncelle extends Controller
         $data['options_total'] = $this->model_catalog_option->getTotalOptions();
         $data['options']        = $this->model_catalog_option->getOptions();
 
-        $data['getproductcounturl']   = $this->url->link('ortakpanel/fiyatguncelle/getProductsCountByCategoryId', 'token=' . $this->session->data['token'] , 'SSL');
+        $data['getproductcounturl'] = $this->url->link('ortakpanel/fiyatguncelle/getProductsCountByCategoryId', 'token=' . $this->session->data['token'] , 'SSL');
+        $data['setfiyaturl']        = $this->url->link('ortakpanel/fiyatguncelle/setYeniFiyat', 'token=' . $this->session->data['token'] , 'SSL');
+        $data['setaciklamaurl']     = $this->url->link('ortakpanel/fiyatguncelle/setAciklama', 'token=' . $this->session->data['token'] , 'SSL');
+        $data['token']              = $this->session->data['token'];
+
         $data['header'] = $this->load->controller('common/ortakpanel_header');
         $data['column_left'] = $this->load->controller('common/ortakpanel_left');
         $data['footer'] = $this->load->controller('common/ortakpanel_footer');
@@ -41,6 +45,26 @@ class ControllerOrtakpanelFiyatguncelle extends Controller
     public function getProductsCountByCategoryId(){
         $this->load->model('ortakpanel/fiyatguncelle');
         $kategori_id = $this->request->get['kategori_id'];
-        echo $this->model_ortakpanel_fiyatguncelle->getProductsCountByCategoryId($kategori_id);
+        $option_id = $this->request->get['option_id'];
+
+        echo $this->model_ortakpanel_fiyatguncelle->getProductsCountByCategoryId($kategori_id,$option_id);
+    }
+
+    public  function setYeniFiyat(){
+        $this->load->model('ortakpanel/fiyatguncelle');
+        $kategori_id = $this->request->get['kategori_id'];
+        $option_id = $this->request->get['option_id'];
+        $yeni_fiyat = $this->request->get['yeni_fiyat'];
+
+        echo $this->model_ortakpanel_fiyatguncelle->setYeniFiyat($kategori_id,$option_id,$yeni_fiyat);
+    }
+
+    public function setAciklama(){
+        $this->load->model('ortakpanel/fiyatguncelle');
+        $kategori_id    = $this->request->get['kategori_id'];
+        $option_id      = $this->request->get['option_id'];
+        $aciklama       = $this->request->get['aciklama'];
+
+        echo $this->model_ortakpanel_fiyatguncelle->setAciklama($kategori_id,$option_id,$aciklama);
     }
 }

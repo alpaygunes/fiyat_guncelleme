@@ -19,7 +19,7 @@
 						  <div class="form-group">
 							  <label class="control-label" for="input-order-status">Kategoriler</label>
 							  <select name="kategoriler" id="kategori-slct" class="form-control">
-								  <option value="*" selected></option>
+								  <option value="0" selected></option>
 								  <?php foreach ($categoryes as $category) { ?>
 								  <option value="<?php echo $category['category_id']; ?>"  ><?php echo $category['name']; ?></option>
 								  <?php } ?>
@@ -29,8 +29,8 @@
 					  <div class="col-sm-6">
 						  <div class="form-group">
 							  <label class="control-label" for="input-order-status">Seçenekler</label>
-							  <select name="kategoriler" id="option-slct" class="form-control">
-								  <option value="*" selected></option>
+							  <select name="secenekler" id="option-slct" class="form-control">
+								  <option value="0" selected></option>
 								  <?php foreach ($options as $option) { ?>
 								  <option value="<?php echo $option['option_id']; ?>"   ><?php echo $option['name']; ?></option>
 								  <?php } ?>
@@ -45,6 +45,33 @@
 						  </div>
 						  <div class="btn btn-primary pull-right"  id="etkilenecek-urunsayisi" style="display: none;">Etkilenecek Ürün Sayısını Getir</div>
 					  </div>
+				  </div>
+			  </div>
+		  </div>
+
+		  <div class="well">
+			  <div class="table-responsive">
+				  <div class="col-sm-12">
+					  <div class="form-group">
+						  <label class="control-label" for="input-order-status">Yeni Fiyat</label>
+						  <input type="number" id="yeni-fiyat"  class="form-control" placeholder="Yeni fiyatı yazın">
+					  </div>
+					  <div class="btn btn-primary pull-right"  id="fiyati-kaydet">Fiyatı Kaydet</div>
+				  </div>
+			  </div>
+		  </div>
+
+		  <div class="well">
+			  <div class="table-responsive">
+				  EDİTORDE YAZAN POST EDİLEMİYOR
+				  TEXTAREA NIN VALUESİ NASIL ALINIR ? ÖĞRENMEN LAZIM
+				  <div class="col-sm-12">
+					  <div class="form-group">
+						  <label class="control-label" for="input-order-status">Açıklama Ekle</label>
+						  <textarea name="product_description1" placeholder="Açıklama yazın" id="input-description1"></textarea>
+					  </div>
+					  <div class="btn btn-primary pull-right"  id="aciklama-kaydet">Açıklamayı Kaydet</div>
+				  </div>
 			  </div>
 		  </div>
 	  </div>
@@ -55,20 +82,23 @@
 </div>
 <?php echo $footer; ?>
 
+<script type="text/javascript" src="view/javascript/ckeditor/ckeditor.js"></script>
 <script language="JavaScript1.2">
-	var kategori_id='*',option_id='*';
+	var kategori_id='0',option_id='0';
 	var kategori_adi,option_adi;
 	$('#kategori-slct').change(function () {
 		kategori_adi 	= $('#kategori-slct option:selected').text();
         kategori_id 	= $('#kategori-slct option:selected').val();
         console.log(kategori_adi,kategori_id)
-        cumleyiOlustur()
+        //cumleyiOlustur()
+        $('#etkilenecek-urunsayisi').trigger('click');
     })
     $('#option-slct').change(function () {
         option_id 	= $('#option-slct option:selected').val();
         option_adi 	= $('#option-slct option:selected').text();
         console.log(option_adi,option_id)
-        cumleyiOlustur()
+        //cumleyiOlustur()
+        $('#etkilenecek-urunsayisi').trigger('click');
     })
 
 	function cumleyiOlustur() {
@@ -82,11 +112,11 @@
             }
         }else{
             $('#etkilenecek-urunsayisi').show();
-            if(option_id!='*'){
+            if(option_id!=0){
                 cumle = 'Sadce ' + option_adi +" -- seçeneğine sahip  ürünler için işlem yapılacak";
             }
             // hiç biri seçilmemişse
-            if(option_id=='*'){
+            if(option_id==0){
                 $('#etkilenecek-urunsayisi').hide();
                 $('#mantik-cumlesi').html('');
             }
@@ -97,7 +127,7 @@
 
     //etkilenecek ürün sayısını getir
 	$('#etkilenecek-urunsayisi').click(function () {
-	    url	= '<?php echo $getproductcounturl;?>'+'&kategori_id='+kategori_id;
+	    url	= '<?php echo $getproductcounturl;?>'+'&kategori_id='+kategori_id+'&option_id='+option_id;
         var url = url.replace("&amp;", "&");
         $.ajax({
             url: url,
@@ -118,7 +148,100 @@
         });
 
     })
+
+
+
+    CKEDITOR.replace('input-description1');
+    CKEDITOR.on('dialogDefinition', function (event)
+    {
+        var editor = event.editor;
+        var dialogDefinition = event.data.definition;
+        var dialogName = event.data.name;
+
+        var tabCount = dialogDefinition.contents.length;
+        for (var i = 0; i < tabCount; i++) {
+            var browseButton = dialogDefinition.contents[i].get('browse');
+
+            if (browseButton !== null) {
+                browseButton.hidden = false;
+                browseButton.onClick = function() {
+                    $('#modal-image').remove();
+                    $.ajax({
+                        url: 'index.php?route=common/filemanager&token=<?php echo $token; ?>&ckedialog='+this.filebrowser.target,
+                        dataType: 'html',
+                        success: function(html) {
+                            $('body').append('<div id="modal-image" style="z-index: 10020;" class="modal">' + html + '</div>');
+                            $('#modal-image').modal('show');
+                        }
+                    });
+                }
+            }
+        }
+    });
+
+
+
+    //fiyatı kaydet
+    $('#fiyati-kaydet').click(function () {
+        yeni_fiyat	= $('#yeni-fiyat').val();
+        url	= '<?php echo $setfiyaturl;?>'+'&kategori_id='+kategori_id+'&option_id='+option_id+'&yeni_fiyat='+yeni_fiyat;
+        var url = url.replace("&amp;", "&");
+        $.ajax({
+            url: url,
+            dataType: 'html',
+            beforeSend: function() {
+                $('#fiyati-kaydet').button('loading');
+            },
+            complete: function() {
+                $('#fiyati-kaydet').button('reset');
+            },
+            success: function(data) {
+                console.log('Fiyat güncellendi');
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert("Fiyatlar kaydedilmedi ");
+                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            }
+        });
+
+    })
+
+
+    //aciklama kaydet
+    $('#aciklama-kaydet').click(function () {
+        aciklama	= $('#input-description1');
+        aciklama	= 'bilgisayar';
+        console.log(aciklama);
+        //console.log($('#input-description1'))
+        url	= '<?php echo $setaciklamaurl;?>'+'&kategori_id='+kategori_id+'&option_id='+option_id+'&aciklama='+aciklama;
+        var url = url.replace("&amp;", "&");
+        $.ajax({
+            url: url,
+            dataType: 'html',
+            beforeSend: function() {
+                $('#fiyati-kaydet').button('loading');
+            },
+            complete: function() {
+                $('#fiyati-kaydet').button('reset');
+            },
+            success: function(data) {
+                console.log('Açıklama kaydedildi');
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert("Açıklama kaydedilmedi ");
+                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            }
+        });
+
+    })
+
+
 </script>
+
+
+
+
+
 
 <style>
 	#mantik-cumlesi{
@@ -129,6 +252,10 @@
 		font-size: 18px;
 		font-weight: bold;
 		width: 250px;
+	}
+
+	#etkilenecek-urunsayisi-div{
+		font-size: 24px;
 	}
 </style>
 
