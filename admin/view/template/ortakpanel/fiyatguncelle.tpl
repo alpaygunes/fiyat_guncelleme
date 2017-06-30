@@ -49,28 +49,28 @@
 			  </div>
 		  </div>
 
-		  <div class="well">
+		  <div class="well alan">
 			  <div class="table-responsive">
 				  <div class="col-sm-12">
 					  <div class="form-group">
 						  <label class="control-label" for="input-order-status">Yeni Fiyat</label>
-						  <input type="number" id="yeni-fiyat"  class="form-control" placeholder="Yeni fiyatı yazın">
+						  <input type="number" min="0" max="99999" required id="yeni-fiyat"  class="form-control" placeholder="Yeni fiyatı yazın">
 					  </div>
 					  <div class="btn btn-primary pull-right"  id="fiyati-kaydet">Fiyatı Kaydet</div>
 				  </div>
 			  </div>
 		  </div>
 
-		  <div class="well">
+		  <div class="well  alan">
 			  <div class="table-responsive">
-				  EDİTORDE YAZAN POST EDİLEMİYOR
-				  TEXTAREA NIN VALUESİ NASIL ALINIR ? ÖĞRENMEN LAZIM
 				  <div class="col-sm-12">
+					  <form id="form0" method="post" action="<?php echo $setaciklamaurl;?>" >
 					  <div class="form-group">
 						  <label class="control-label" for="input-order-status">Açıklama Ekle</label>
 						  <textarea name="product_description" placeholder="Açıklama yazın" id="input-description1"></textarea>
 					  </div>
 					  <div class="btn btn-primary pull-right"  id="aciklama-kaydet">Açıklamayı Kaydet</div>
+					  </form>
 				  </div>
 			  </div>
 		  </div>
@@ -90,48 +90,47 @@
 		kategori_adi 	= $('#kategori-slct option:selected').text();
         kategori_id 	= $('#kategori-slct option:selected').val();
         console.log(kategori_adi,kategori_id)
-        //cumleyiOlustur()
         $('#etkilenecek-urunsayisi').trigger('click');
     })
     $('#option-slct').change(function () {
         option_id 	= $('#option-slct option:selected').val();
         option_adi 	= $('#option-slct option:selected').text();
         console.log(option_adi,option_id)
-        //cumleyiOlustur()
         $('#etkilenecek-urunsayisi').trigger('click');
     })
 
-	function cumleyiOlustur() {
-	    // ikiside seçili ise
-        if(kategori_id!='*'){
-            $('#etkilenecek-urunsayisi').show();
-            if(option_id!='*'){
-				cumle = kategori_adi +" -- kategorisindeki <span id=\"ve-baglaci\">VE</span> " + option_adi +" seçeneğine sahip  ürünler için işlem yapılacak !!!";
-            }else{
-                cumle = "Sadece " + kategori_adi +" -- kategorisindeki  ürünler için işlem yapılacak";
-            }
+
+	$('#yeni-fiyat').keypress(function () {
+
+	    numarami = 1;
+	    try {
+            sayi = parseFloat($(this).val());
+            sayi = sayi +0;
+        } catch (e) {
+            numarami = 0;
+		}
+
+		if(numarami>0){
+            $('#fiyati-kaydet').show();
         }else{
-            $('#etkilenecek-urunsayisi').show();
-            if(option_id!=0){
-                cumle = 'Sadce ' + option_adi +" -- seçeneğine sahip  ürünler için işlem yapılacak";
-            }
-            // hiç biri seçilmemişse
-            if(option_id==0){
-                $('#etkilenecek-urunsayisi').hide();
-                $('#mantik-cumlesi').html('');
-            }
+            $('#fiyati-kaydet').hide();
         }
-        $('#mantik-cumlesi').html(cumle);
-    }
+    })
 
 
     //etkilenecek ürün sayısını getir
 	$('#etkilenecek-urunsayisi').click(function () {
 	    url	= '<?php echo $getproductcounturl;?>'+'&kategori_id='+kategori_id+'&option_id='+option_id;
+	    if(option_id=="0" && kategori_id=="0"){
+        	$('.alan').hide();
+            $('#etkilenecek-urunsayisi-div').html('');
+        	return;
+        }
+
         var url = url.replace("&amp;", "&");
         $.ajax({
             url: url,
-            dataType: 'html',
+            dataType: 'json',
             beforeSend: function() {
                 $('#etkilenecek-urunsayisi').button('loading');
             },
@@ -140,6 +139,11 @@
             },
             success: function(data) {
                 $('#etkilenecek-urunsayisi-div').html(data+ ' ürün etkilenecek ' )
+				if(data[0]==0){
+                	$('.alan').hide();
+                }else{
+                    $('.alan').show();
+                }
             },
             error: function(xhr, ajaxOptions, thrownError) {
                 alert("Ürün sayısı alınamadı ");
@@ -209,30 +213,20 @@
 
     //aciklama kaydet
     $('#aciklama-kaydet').click(function () {
-        aciklama	= $('#input-description1').val();
-        //aciklama	= 'bilgisayar';
-        alert(aciklama);
-        //console.log($('#input-description1'))
-        url	= '<?php echo $setaciklamaurl;?>'+'&kategori_id='+kategori_id+'&option_id='+option_id+'&aciklama='+aciklama;
+        url	= '<?php echo $setaciklamaurl;?>'+'&kategori_id='+kategori_id+'&option_id='+option_id;
         var url = url.replace("&amp;", "&");
-        $.ajax({
-            url: url,
-            dataType: 'html',
-            beforeSend: function() {
-                $('#fiyati-kaydet').button('loading');
-            },
-            complete: function() {
-                $('#fiyati-kaydet').button('reset');
-            },
-            success: function(data) {
-                console.log('Açıklama kaydedildi');
-            },
-            error: function(xhr, ajaxOptions, thrownError) {
-                alert("Açıklama kaydedilmedi ");
-                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-            }
-        });
+        $('#form0').attr('action',url);
+        $('#form0').submit();
+    })
 
+    $(document).ready(function () {
+        $('.alan').hide();
+        $('#fiyati-kaydet').hide();
+        <?php
+            if(isset($this->request->get['mesaj'])){
+                echo "alert('".$this->request->get['mesaj']."')";
+            }
+        ?>
     })
 
 

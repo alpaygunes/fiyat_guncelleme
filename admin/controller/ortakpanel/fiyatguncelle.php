@@ -47,7 +47,9 @@ class ControllerOrtakpanelFiyatguncelle extends Controller
         $kategori_id = $this->request->get['kategori_id'];
         $option_id = $this->request->get['option_id'];
 
-        echo $this->model_ortakpanel_fiyatguncelle->getProductsCountByCategoryId($kategori_id,$option_id);
+        $json       = $this->model_ortakpanel_fiyatguncelle->getProductsCountByCategoryId($kategori_id,$option_id);
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode(array($json)));
     }
 
     public  function setYeniFiyat(){
@@ -63,8 +65,10 @@ class ControllerOrtakpanelFiyatguncelle extends Controller
         $this->load->model('ortakpanel/fiyatguncelle');
         $kategori_id    = $this->request->get['kategori_id'];
         $option_id      = $this->request->get['option_id'];
-        $aciklama       = $this->request->get['aciklama'];
+        $aciklama       = $this->request->post['product_description'];
 
-        echo $this->model_ortakpanel_fiyatguncelle->setAciklama($kategori_id,$option_id,$aciklama);
+        $this->model_ortakpanel_fiyatguncelle->setAciklama($kategori_id,$option_id,$aciklama);
+
+        $this->response->redirect($this->url->link('ortakpanel/fiyatguncelle','mesaj=Açıklama Eklendi&token=' . $this->session->data['token'], 'SSL'));
     }
 }
