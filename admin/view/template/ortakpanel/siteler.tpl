@@ -18,10 +18,10 @@
 		  <div class="table-responsive">
 			  <div class="col-sm-12">
 				  <div class="form-group">
-					  <label class="control-label" for="input-order-status">Yeni Site</label>
+					  <label class="control-label" for="input-order-status" style="font-size: 24px">Yeni Site</label>
 					  <input type="text"
-							 style="font-size: 22px;"
-							 id="site-url"  class="form-control" placeholder="Site URL sini yazın">
+							 style="font-size: 22px;height: 64px"
+							 id="site-url"  class="form-control" placeholder="Site URL sini http:// olmadan yazın">
 				  </div>
 				  <div class="btn btn-primary pull-right"  id="site-ekle">Ekle</div>
 			  </div>
@@ -35,10 +35,14 @@
 </div>
 
 <script language="JavaScript1.2">
-    //aciklama kaydet
+    //siteyi kaydet
     $('#site-ekle').click(function () {
         site_url	= $('#site-url').val();
-        url	= '<?php echo $siteekleurl;?>'+'&site_url='+site_url;
+        site_url_eki='';
+        if(site_id!=null) {
+			site_url_eki = '&site_id='+site_id
+        }
+        url	= '<?php echo $siteekleurl;?>'+'&site_url='+site_url+site_url_eki;
         var url = url.replace("&amp;", "&");
         $.ajax({
             url: url,
@@ -52,6 +56,9 @@
             success: function(data) {
                 console.log('Site kaydedildi');
                 getSiteler();
+                $('#site-url').val('');
+                $('#site-ekle').html('Kaydet');
+                site_id=null;
             },
             error: function(xhr, ajaxOptions, thrownError) {
                 alert("Site kaydedilmedi ");
@@ -100,8 +107,25 @@
 
 
     $(document).on('click','.sil',function () {
-        site_id	= $(this).attr('site_id');
+        site_id		= $(this).attr('site_id');
         site_url	= $(this).attr('site_url');
+        url			= '<?php echo $silsiteurl;?>'+'&site_id='+site_id;
+        var url = url.replace("&amp;", "&");
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            beforeSend: function() {
+            },
+            complete: function() {
+            },
+            success: function(data) {
+                getSiteler();
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert("Site  siliniyorken hata oldu ");
+                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            }
+        });
     })
 
 </script>

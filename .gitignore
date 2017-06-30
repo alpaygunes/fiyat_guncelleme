@@ -51,7 +51,6 @@
 /admin/view/template/tool/
 /admin/view/template/total/
 /admin/view/template/tasarim/
-/admin/view/template/senkronizasyon/
 /admin/view/template/sale/
 /admin/view/template/shipping/
 /admin/view/template/user/
@@ -75,7 +74,6 @@
 /admin/controller/total/
 /admin/controller/testimonial/
 /admin/controller/wkcustomfield/
-/admin/controller/senkronizasyon/
 /admin/controller/setting/
 /admin/controller/tool/
 /admin/controller/payment/
@@ -119,3 +117,5 @@
 /admin/controller/common/menu.php
 /admin/controller/common/forgotten.php
 .idea/
+/admin/view/template/senkronizasyon/
+!/admin/view/template/senkronizasyon/start.tpl

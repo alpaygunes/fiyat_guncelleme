@@ -68,7 +68,7 @@
 				  <div class="col-sm-12">
 					  <div class="form-group">
 						  <label class="control-label" for="input-order-status">Açıklama Ekle</label>
-						  <textarea name="product_description1" placeholder="Açıklama yazın" id="input-description1"></textarea>
+						  <textarea name="product_description" placeholder="Açıklama yazın" id="input-description1"></textarea>
 					  </div>
 					  <div class="btn btn-primary pull-right"  id="aciklama-kaydet">Açıklamayı Kaydet</div>
 				  </div>
@@ -209,9 +209,9 @@
 
     //aciklama kaydet
     $('#aciklama-kaydet').click(function () {
-        aciklama	= $('#input-description1');
-        aciklama	= 'bilgisayar';
-        console.log(aciklama);
+        aciklama	= $('#input-description1').val();
+        //aciklama	= 'bilgisayar';
+        alert(aciklama);
         //console.log($('#input-description1'))
         url	= '<?php echo $setaciklamaurl;?>'+'&kategori_id='+kategori_id+'&option_id='+option_id+'&aciklama='+aciklama;
         var url = url.replace("&amp;", "&");

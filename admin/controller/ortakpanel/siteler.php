@@ -21,6 +21,8 @@ class ControllerOrtakpanelSiteler extends Controller
 
         $data['siteekleurl']     = $this->url->link('ortakpanel/siteler/siteekle', 'token=' . $this->session->data['token'] , 'SSL');
         $data['getsiteurl']     = $this->url->link('ortakpanel/siteler/getsiteler', 'token=' . $this->session->data['token'] , 'SSL');
+        $data['silsiteurl']     = $this->url->link('ortakpanel/siteler/silsite', 'token=' . $this->session->data['token'] , 'SSL');
+
         $data['token']           = $this->session->data['token'];
 
         $data['heading_title']   = "Ortak Panel";
@@ -39,9 +41,25 @@ class ControllerOrtakpanelSiteler extends Controller
 
     function siteekle(){
         $this->load->model('ortakpanel/siteler');
-
         $site_url   =   $this->request->get['site_url'];
-        $result     =   $this->model_ortakpanel_siteler->siteekle($site_url);
+
+        if(isset($this->request->get['site_id'])){
+            $this->model_ortakpanel_siteler->siteguncelle($site_url,$this->request->get['site_id']);
+            $result = 'guncellendi';
+        }else{
+            $this->model_ortakpanel_siteler->siteekle($site_url);
+            $result     = 'eklendi';
+        }
+
+        $this->response->setOutput(json_encode($result));
+
+    }
+
+    function silsite(){
+        $this->load->model('ortakpanel/siteler');
+
+        $site_id   =   $this->request->get['site_id'];
+        $result    =   $this->model_ortakpanel_siteler->silsite($site_id);
 
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($result));

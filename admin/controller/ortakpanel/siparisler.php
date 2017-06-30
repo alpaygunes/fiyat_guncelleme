@@ -12,10 +12,12 @@ class ControllerOrtakpanelSiparisler extends Controller
 
     function siparisleriCek(){
         include ("sitelerArr.php");
-        $this->siteler  = $sitelerArr;
-        $data           = array();
+        $this->load->model('ortakpanel/siteler');
+        $siteler =  $this->model_ortakpanel_siteler->getSiteler();
+
         $this->load->model('ortakpanel/siparisler');
-        $data           = $this->model_ortakpanel_siparisler->siparisler($this->siteler,$this->request->get);
+        $data           = array();
+        $data           = $this->model_ortakpanel_siparisler->siparisler($siteler,$this->request->get);
 
         $data['header'] = $this->load->controller('common/ortakpanel_header');
         $data['column_left'] = $this->load->controller('common/ortakpanel_left');
