@@ -54,7 +54,7 @@
                 $('#site-ekle').button('reset');
             },
             success: function(data) {
-                console.log('Site kaydedildi');
+                console.log(data);
                 getSiteler();
                 $('#site-url').val('');
                 $('#site-ekle').html('Kaydet');

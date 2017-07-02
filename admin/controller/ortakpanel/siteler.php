@@ -47,8 +47,8 @@ class ControllerOrtakpanelSiteler extends Controller
             $this->model_ortakpanel_siteler->siteguncelle($site_url,$this->request->get['site_id']);
             $result = 'guncellendi';
         }else{
-            $this->model_ortakpanel_siteler->siteekle($site_url);
-            $result     = 'eklendi';
+            $result = $this->model_ortakpanel_siteler->siteekle($site_url);
+            //$result     = 'eklendi';
         }
 
         $this->response->setOutput(json_encode($result));

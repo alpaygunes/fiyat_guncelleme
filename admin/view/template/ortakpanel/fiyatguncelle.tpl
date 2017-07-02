@@ -54,7 +54,7 @@
 				  <div class="col-sm-12">
 					  <div class="form-group">
 						  <label class="control-label" for="input-order-status">Yeni Fiyat</label>
-						  <input type="number" min="0" max="99999" required id="yeni-fiyat"  class="form-control" placeholder="Yeni fiyatı yazın">
+						  <input type="text" id="yeni-fiyat"  class="form-control" placeholder="Yeni fiyatı yazın">
 					  </div>
 					  <div class="btn btn-primary pull-right"  id="fiyati-kaydet">Fiyatı Kaydet</div>
 				  </div>
@@ -100,20 +100,14 @@
     })
 
 
-	$('#yeni-fiyat').keypress(function () {
-
-	    numarami = 1;
-	    try {
-            sayi = parseFloat($(this).val());
-            sayi = sayi +0;
-        } catch (e) {
-            numarami = 0;
-		}
-
-		if(numarami>0){
-            $('#fiyati-kaydet').show();
-        }else{
-            $('#fiyati-kaydet').hide();
+	$('#yeni-fiyat').keyup(function (e) {
+        var regex = /^\d+(\.\d{1,2})?$/i;
+        var key = $(this).val();
+        if (key.match(regex) != null) {
+            $('#fiyati-kaydet').show()
+        }
+        else {
+            $('#fiyati-kaydet').hide()
         }
     })
 

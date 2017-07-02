@@ -120,3 +120,4 @@
 /admin/view/template/senkronizasyon/
 !/admin/view/template/senkronizasyon/start.tpl
 /admin/controller/senkronizasyon/
+!/admin/
