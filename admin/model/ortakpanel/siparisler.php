@@ -17,6 +17,7 @@ class ModelOrtakpanelSiparisler extends Model
         $url_eki        = "/index.php?route=ortakpanel_bayi/order/&yeni_token=".$this->session->data['token'];
         $url_eki        .=$rqst;
         $data1['orders']    = array();
+        $data               = array();
         foreach ($siteler as $site){
             $ch         = curl_init();
             curl_setopt($ch, CURLOPT_URL,'http://'.$site['site_url'].$url_eki);
@@ -27,9 +28,14 @@ class ModelOrtakpanelSiparisler extends Model
             $data0 = preg_replace("/^$bom/", '', $data0);
             $data0 = preg_replace("/^$bom/", '', $data0);
             $data0 = json_decode($data0,TRUE);
-            $data1['orders'] = array_merge($data0['orders'],$data1['orders']);
+            if(is_array($data0)){
+                $data1['orders'] = array_merge($data0['orders'],$data1['orders']);
+                if(!count($data)){
+                    $data = $data0;
+                }
+            }
         }
-        $data = $data0;
+
         $data['orders']=$data1['orders'];
 
         //datalarin içindeki linklerde bulunan bayi site urlelerini değiştir.
@@ -68,15 +74,15 @@ class ModelOrtakpanelSiparisler extends Model
         $url_eki        = "index.php?route=ortakpanel_bayi/order/info&yeni_token=".$this->session->data['token'];
         $url_eki        .=$rqst;
         $bayi_sitesi    = $gets["siparis_sitesi"];
-        $ch         = curl_init();
+        $ch             = curl_init();
         curl_setopt($ch, CURLOPT_URL,$bayi_sitesi.$url_eki);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $data         = curl_exec($ch);
+        $data           = curl_exec($ch);
         curl_close($ch);
-        $bom = pack('H*','EFBBBF');
-        $data = preg_replace("/^$bom/", '', $data);
-        $data = preg_replace("/^$bom/", '', $data);
-        $data = json_decode($data,TRUE);
+        $bom            = pack('H*','EFBBBF');
+        $data           = preg_replace("/^$bom/", '', $data);
+        $data           = preg_replace("/^$bom/", '', $data);
+        $data           = json_decode($data,TRUE);
 
         //datalarin içindeki linklerde bulunan bayi site urlelerini değiştir.
         $şablon = '/:\/\/(.*)(route)/i';
@@ -190,5 +196,11 @@ class ModelOrtakpanelSiparisler extends Model
         $data = preg_replace("/^$bom/", '', $data);
         $data = json_decode($data,TRUE);
         return $data;
+    }
+
+
+    // bayiden gelnd ata0 ın json olup omadığını kontrole der
+    function isJSON($string){
+        return is_string($string) && is_array(json_decode($string, true)) && (json_last_error() == JSON_ERROR_NONE) ? true : false;
     }
 }
