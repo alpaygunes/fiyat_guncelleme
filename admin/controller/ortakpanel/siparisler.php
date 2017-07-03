@@ -19,6 +19,109 @@ class ControllerOrtakpanelSiparisler extends Controller
         $data           = array();
         $data           = $this->model_ortakpanel_siparisler->siparisler($siteler,$this->request->get);
 
+        // sayfalama ile ilgili kodlar
+        if (isset($this->request->get['filter_order_id'])) {
+            $filter_order_id = $this->request->get['filter_order_id'];
+        } else {
+            $filter_order_id = null;
+        }
+
+        if (isset($this->request->get['filter_customer'])) {
+            $filter_customer = $this->request->get['filter_customer'];
+        } else {
+            $filter_customer = null;
+        }
+
+        if (isset($this->request->get['filter_order_status'])) {
+            $filter_order_status = $this->request->get['filter_order_status'];
+        } else {
+            $filter_order_status = null;
+        }
+
+        if (isset($this->request->get['filter_total'])) {
+            $filter_total = $this->request->get['filter_total'];
+        } else {
+            $filter_total = null;
+        }
+
+        if (isset($this->request->get['filter_date_added'])) {
+            $filter_date_added = $this->request->get['filter_date_added'];
+        } else {
+            $filter_date_added = null;
+        }
+
+        if (isset($this->request->get['filter_date_modified'])) {
+            $filter_date_modified = $this->request->get['filter_date_modified'];
+        } else {
+            $filter_date_modified = null;
+        }
+
+        if (isset($this->request->get['sort'])) {
+            $sort = $this->request->get['sort'];
+        } else {
+            $sort = 'o.order_id';
+        }
+
+        if (isset($this->request->get['order'])) {
+            $order = $this->request->get['order'];
+        } else {
+            $order = 'DESC';
+        }
+
+        if (isset($this->request->get['page'])) {
+            $page = $this->request->get['page'];
+        } else {
+            $page = 1;
+        }
+
+        $url = '';
+
+        if (isset($this->request->get['filter_order_id'])) {
+            $url .= '&filter_order_id=' . $this->request->get['filter_order_id'];
+        }
+
+        if (isset($this->request->get['filter_customer'])) {
+            $url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
+        }
+
+        if (isset($this->request->get['filter_order_status'])) {
+            $url .= '&filter_order_status=' . $this->request->get['filter_order_status'];
+        }
+
+        if (isset($this->request->get['filter_total'])) {
+            $url .= '&filter_total=' . $this->request->get['filter_total'];
+        }
+
+        if (isset($this->request->get['filter_date_added'])) {
+            $url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
+        }
+
+        if (isset($this->request->get['filter_date_modified'])) {
+            $url .= '&filter_date_modified=' . $this->request->get['filter_date_modified'];
+        }
+
+        if (isset($this->request->get['sort'])) {
+            $url .= '&sort=' . $this->request->get['sort'];
+        }
+
+        if (isset($this->request->get['order'])) {
+            $url .= '&order=' . $this->request->get['order'];
+        }
+
+        if (isset($this->request->get['page'])) {
+            $url .= '&page=' . $this->request->get['page'];
+        }
+
+        $pagination = new Pagination();
+        $pagination->total = $data['order_total'];
+        $pagination->page = $page;
+        $pagination->limit = $this->config->get('config_limit_admin');
+        $pagination->url = $this->url->link('ortakpanel/siparisler', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL');
+
+
+        $data['pagination'] = $pagination->render();
+
+
         $data['header'] = $this->load->controller('common/ortakpanel_header');
         $data['column_left'] = $this->load->controller('common/ortakpanel_left');
         $data['footer'] = $this->load->controller('common/ortakpanel_footer');

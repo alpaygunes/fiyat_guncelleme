@@ -29,14 +29,16 @@ class ModelOrtakpanelSiparisler extends Model
             $data0 = preg_replace("/^$bom/", '', $data0);
             $data0 = json_decode($data0,TRUE);
             if(is_array($data0)){
-                $data1['orders'] = array_merge($data0['orders'],$data1['orders']);
+                $data1['orders']        = array_merge($data0['orders'],$data1['orders']);
+                $data1['order_total']   = $data0['order_total']+$data1['order_total'];
                 if(!count($data)){
                     $data = $data0;
                 }
             }
         }
 
-        $data['orders']=$data1['orders'];
+        $data['orders']         =$data1['orders'];
+        $data['order_total']    =$data1['order_total'];
 
         //datalarin içindeki linklerde bulunan bayi site urlelerini değiştir.
         $şablon = '/:\/\/(.*)(route)/i';
