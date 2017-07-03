@@ -40,6 +40,16 @@ class ModelOrtakpanelSiparisler extends Model
         $data['orders']         =$data1['orders'];
         $data['order_total']    =$data1['order_total'];
 
+        //tarihleri time yapalımki sıralaması olabilsin
+        foreach ($data['orders'] as $key=>$value){
+            $timestamp = DateTime::createFromFormat('d/m/Y', $value['date_added'])->getTimestamp();
+            $data['orders'][$key]['time'] = $timestamp;
+        }
+
+        $yeni_dizi = $this->array_msort($data['orders'], array('time'=>SORT_DESC));
+
+        $data['orders'] = $yeni_dizi;
+
         //datalarin içindeki linklerde bulunan bayi site urlelerini değiştir.
         $şablon = '/:\/\/(.*)(route)/i';
         $domain = $this->url->link('', '', 'SSL');
@@ -204,5 +214,32 @@ class ModelOrtakpanelSiparisler extends Model
     // bayiden gelnd ata0 ın json olup omadığını kontrole der
     function isJSON($string){
         return is_string($string) && is_array(json_decode($string, true)) && (json_last_error() == JSON_ERROR_NONE) ? true : false;
+    }
+
+
+
+    function array_msort($array, $cols)
+    {
+        $colarr = array();
+        foreach ($cols as $col => $order) {
+            $colarr[$col] = array();
+            foreach ($array as $k => $row) { $colarr[$col]['_'.$k] = strtolower($row[$col]); }
+        }
+        $eval = 'array_multisort(';
+        foreach ($cols as $col => $order) {
+            $eval .= '$colarr[\''.$col.'\'],'.$order.',';
+        }
+        $eval = substr($eval,0,-1).');';
+        eval($eval);
+        $ret = array();
+        foreach ($colarr as $col => $arr) {
+            foreach ($arr as $k => $v) {
+                $k = substr($k,1);
+                if (!isset($ret[$k])) $ret[$k] = $array[$k];
+                $ret[$k][$col] = $array[$k][$col];
+            }
+        }
+        return $ret;
+
     }
 }
