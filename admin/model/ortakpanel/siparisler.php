@@ -43,7 +43,7 @@ class ModelOrtakpanelSiparisler extends Model
         //tarihleri time yapalımki sıralaması olabilsin
         if($gets['sort']=='o.date_added' || !isset($gets['sort'])){
             foreach ($data['orders'] as $key=>$value){
-                $timestamp = DateTime::createFromFormat('d/m/Y', $value['date_added'])->getTimestamp();
+                $timestamp = DateTime::createFromFormat('Y-m-d H:i:s', $value['formatsiz_date_added'])->getTimestamp();
                 $data['orders'][$key]['time'] = $timestamp;
             }
 
