@@ -112,6 +112,11 @@ class ControllerOrtakpanelSiparisler extends Controller
             $url .= '&page=' . $this->request->get['page'];
         }
 
+        if (isset($this->request->get['filter_son_x_gun'])) {
+            $url .= '&filter_son_x_gun=' . $this->request->get['filter_son_x_gun'];
+            $data['filter_son_x_gun']   =  $this->request->get['filter_son_x_gun'];
+        }
+
 
         $start   = ($page - 1) * $this->config->get('config_limit_admin');
         $limit   = $this->config->get('config_limit_admin');
