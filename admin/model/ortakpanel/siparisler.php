@@ -41,7 +41,7 @@ class ModelOrtakpanelSiparisler extends Model
         $data['order_total']    =$data1['order_total'];
 
         //tarihleri time yapalımki sıralaması olabilsin
-        if($gets['sort']=='o.date_added'){
+        if($gets['sort']=='o.date_added' || !isset($gets['sort'])){
             foreach ($data['orders'] as $key=>$value){
                 $timestamp = DateTime::createFromFormat('d/m/Y', $value['date_added'])->getTimestamp();
                 $data['orders'][$key]['time'] = $timestamp;
@@ -49,6 +49,8 @@ class ModelOrtakpanelSiparisler extends Model
 
             if($gets['order']=='ASC'){
                 $yeni_dizi = $this->array_msort($data['orders'], array('time'=>SORT_ASC));
+            }else if($gets['order']=='DESC'){
+                $yeni_dizi = $this->array_msort($data['orders'], array('time'=>SORT_DESC));
             }else{
                 $yeni_dizi = $this->array_msort($data['orders'], array('time'=>SORT_DESC));
             }
