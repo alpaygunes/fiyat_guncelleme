@@ -14,13 +14,12 @@ class ModelOrtakpanelSiparisler extends Model
                 }
             }
         }
-
         $url_eki        = "/index.php?route=ortakpanel_bayi/order/&yeni_token=".$this->session->data['token'];
-        $url_eki        .= $rqst;
+        $url_eki        .=$rqst;
         $data1['orders']    = array();
         $data               = array();
         foreach ($siteler as $site){
-            $ch             = curl_init();
+            $ch         = curl_init();
             curl_setopt($ch, CURLOPT_URL,'http://'.$site['site_url'].$url_eki);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             $data0         = curl_exec($ch);
@@ -84,7 +83,6 @@ class ModelOrtakpanelSiparisler extends Model
                 }
             }
         }
-
         $url_eki        = "index.php?route=ortakpanel_bayi/order/info&yeni_token=".$this->session->data['token'];
         $url_eki        .=$rqst;
         $bayi_sitesi    = $gets["siparis_sitesi"];
