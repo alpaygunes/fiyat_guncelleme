@@ -41,14 +41,21 @@ class ModelOrtakpanelSiparisler extends Model
         $data['order_total']    =$data1['order_total'];
 
         //tarihleri time yapalımki sıralaması olabilsin
-        foreach ($data['orders'] as $key=>$value){
-            $timestamp = DateTime::createFromFormat('d/m/Y', $value['date_added'])->getTimestamp();
-            $data['orders'][$key]['time'] = $timestamp;
+        if($gets['sort']=='o.date_added'){
+            foreach ($data['orders'] as $key=>$value){
+                $timestamp = DateTime::createFromFormat('d/m/Y', $value['date_added'])->getTimestamp();
+                $data['orders'][$key]['time'] = $timestamp;
+            }
+
+            if($gets['order']=='ASC'){
+                $yeni_dizi = $this->array_msort($data['orders'], array('time'=>SORT_ASC));
+            }else{
+                $yeni_dizi = $this->array_msort($data['orders'], array('time'=>SORT_DESC));
+            }
+
+            $data['orders'] = $yeni_dizi;
         }
 
-        $yeni_dizi = $this->array_msort($data['orders'], array('time'=>SORT_DESC));
-
-        $data['orders'] = $yeni_dizi;
 
         //datalarin içindeki linklerde bulunan bayi site urlelerini değiştir.
         $şablon = '/:\/\/(.*)(route)/i';
