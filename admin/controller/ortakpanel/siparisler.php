@@ -156,6 +156,19 @@ class ControllerOrtakpanelSiparisler extends Controller
         $this->response->setOutput($this->load->view('ortakpanel/order_info.tpl', $data));
     }
 
+    function invoice(){
+        $data           = array();
+        $this->load->model('ortakpanel/siparisler');
+        if (isset($this->request->get['order_id'])) {
+            $order_id = $this->request->get['order_id'];
+        } else {
+            $order_id = 0;
+        }
+        $data = $this->model_ortakpanel_siparisler->invoice($this->request->get);
+        $data['base']   =   $data['base'].'admin';
+        $this->response->setOutput($this->load->view('ortakpanel/order_invoice.tpl', $data));
+    }
+
     function edit(){
         $data           = array();
         $this->load->model('ortakpanel/siparisler');

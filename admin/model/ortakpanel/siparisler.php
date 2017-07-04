@@ -125,6 +125,37 @@ class ModelOrtakpanelSiparisler extends Model
             }
         }
 
+        //invoice linkin değiştrelim
+        $data['invoice'] = '?route=ortakpanel/siparisler/invoice&siparis_sitesi='.$data['siparis_sitesi'].'&orjinal_url='.$data['invoice'];
+
+
+        return $data;
+    }
+
+    function invoice($gets){
+        //gelen GET leri bayi siteye göndermek içn düzenle
+        $rqst   = "";
+        foreach ($gets as $key=>$value){
+            if($key!='route'){
+                if($key!='token'){
+                    if($key!='siparis_sitesi'){
+                        $rqst .= "&$key=$value";
+                    }
+                }
+            }
+        }
+        $url_eki        = "index.php?route=ortakpanel_bayi/order/invoice&yeni_token=".$this->session->data['token'];
+        $url_eki        .=$rqst;
+        $bayi_sitesi    = $gets["siparis_sitesi"];
+        $ch             = curl_init();
+        curl_setopt($ch, CURLOPT_URL,$bayi_sitesi.$url_eki);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $data           = curl_exec($ch);
+        curl_close($ch);
+        $bom            = pack('H*','EFBBBF');
+        $data           = preg_replace("/^$bom/", '', $data);
+        $data           = preg_replace("/^$bom/", '', $data);
+        $data           = json_decode($data,TRUE);
         return $data;
     }
 
@@ -219,13 +250,10 @@ class ModelOrtakpanelSiparisler extends Model
         return $data;
     }
 
-
     // bayiden gelnd ata0 ın json olup omadığını kontrole der
     function isJSON($string){
         return is_string($string) && is_array(json_decode($string, true)) && (json_last_error() == JSON_ERROR_NONE) ? true : false;
     }
-
-
 
     function array_msort($array, $cols)
     {
