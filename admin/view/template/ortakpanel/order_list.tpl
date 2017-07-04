@@ -95,7 +95,7 @@
                             <div class="form-group">
                                 <label class="control-label" for="input-son-x-gun">Son X Gün</label>
                                 <input type="text" name="filter_son_x_gun" value="<?php echo $filter_son_x_gun; ?>"
-                                       placeholder="Son 10 günü listele" id="input-son-x-gun"
+                                       placeholder="Gün sayısı yazın" id="input-son-x-gun"
                                        class="form-control"/>
                             </div>
                             <button type="button" id="button-filter" class="btn btn-primary pull-right"><i
