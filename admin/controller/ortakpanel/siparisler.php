@@ -117,7 +117,8 @@ class ControllerOrtakpanelSiparisler extends Controller
         $limit   = $this->config->get('config_limit_admin');
 
         //array_slice(array,start,length,preserve)
-        $data['orders']  = array_slice($data['orders'],$start,$limit);
+        $data['orders']     = array_slice($data['orders'],$start,$limit);
+        $data['results']     = "$start" ."-". ((int)$start+(int)$limit);
 
         $pagination         = new Pagination();
         $pagination->total  = $data['order_total'];
