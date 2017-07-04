@@ -115,6 +115,8 @@ class ControllerOrtakpanelSiparisler extends Controller
         if (isset($this->request->get['filter_son_x_gun'])) {
             $url .= '&filter_son_x_gun=' . $this->request->get['filter_son_x_gun'];
             $data['filter_son_x_gun']   =  $this->request->get['filter_son_x_gun'];
+        }else{
+            $data['filter_son_x_gun']=10;
         }
 
 
