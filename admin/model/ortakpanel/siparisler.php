@@ -83,6 +83,7 @@ class ModelOrtakpanelSiparisler extends Model
                 }
             }
         }
+
         $url_eki        = "index.php?route=ortakpanel_bayi/order/info&yeni_token=".$this->session->data['token'];
         $url_eki        .=$rqst;
         $bayi_sitesi    = $gets["siparis_sitesi"];

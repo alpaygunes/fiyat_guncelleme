@@ -112,14 +112,20 @@ class ControllerOrtakpanelSiparisler extends Controller
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $pagination = new Pagination();
-        $pagination->total = $data['order_total'];
-        $pagination->page = $page;
-        $pagination->limit = $this->config->get('config_limit_admin');
-        $pagination->url = $this->url->link('ortakpanel/siparisler', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL');
 
+        $start   = ($page - 1) * $this->config->get('config_limit_admin');
+        $limit   = $this->config->get('config_limit_admin');
 
+        //array_slice(array,start,length,preserve)
+        $data['orders']  = array_slice($data['orders'],$start,$limit);
+
+        $pagination         = new Pagination();
+        $pagination->total  = $data['order_total'];
+        $pagination->page   = $page;
+        $pagination->limit  = $this->config->get('config_limit_admin');
+        $pagination->url    = $this->url->link('ortakpanel/siparisler', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL');
         $data['pagination'] = $pagination->render();
+
 
 
         $data['header'] = $this->load->controller('common/ortakpanel_header');
