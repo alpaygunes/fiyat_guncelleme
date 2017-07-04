@@ -115,8 +115,6 @@ class ControllerOrtakpanelSiparisler extends Controller
         if (isset($this->request->get['filter_son_x_gun'])) {
             $url .= '&filter_son_x_gun=' . $this->request->get['filter_son_x_gun'];
             $data['filter_son_x_gun']   =  $this->request->get['filter_son_x_gun'];
-        }else{
-            $data['filter_son_x_gun']=10;
         }
 
 
@@ -133,8 +131,6 @@ class ControllerOrtakpanelSiparisler extends Controller
         $pagination->limit  = $this->config->get('config_limit_admin');
         $pagination->url    = $this->url->link('ortakpanel/siparisler', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL');
         $data['pagination'] = $pagination->render();
-
-
 
         $data['header'] = $this->load->controller('common/ortakpanel_header');
         $data['column_left'] = $this->load->controller('common/ortakpanel_left');
