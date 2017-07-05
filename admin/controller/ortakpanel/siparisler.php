@@ -165,8 +165,31 @@ class ControllerOrtakpanelSiparisler extends Controller
             $order_id = 0;
         }
         $data = $this->model_ortakpanel_siparisler->invoice($this->request->get);
-        $data['base']   =   $data['base'].'admin';
-        $this->response->setOutput($this->load->view('ortakpanel/order_invoice.tpl', $data));
+
+        if($this->request->get['sablon_adi']){
+            $sablon                 = $this->request->get['sablon_adi'];
+        }else{
+            $sablon = "order_invoice0.tpl";
+            // fatura dizinindeki dosya sayılarve isimleri
+            // $this->config->get('theme_path');
+            $fatura_sablon_yolu = DIR_APPLICATION."view/template/ortakpanel/faturalar";
+            if($handle = opendir($fatura_sablon_yolu))
+            {
+                while(($file = readdir($handle)) !== false)
+                {
+                    if($file != "."
+                        && $file != ".."
+                        && $file != "Thumbs.db"/*Bazı sinir bozucu windows dosyaları.*/)
+                    {
+                        $data['fatura_sablonlari'][]=$file;
+                    }
+                }
+                closedir($handle);
+            }
+        }
+
+
+        $this->response->setOutput($this->load->view('ortakpanel/faturalar/'.$sablon, $data));
     }
 
     function edit(){
