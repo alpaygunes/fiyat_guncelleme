@@ -5,11 +5,8 @@ class ControllerOrtakpanelOrtakpanel extends Controller
 
     public function index()
     {
-
         $this->document->setTitle("Ortak Panel");
-
         $this->load->model('ortakpanel/ortakpanel');
-
         $this->getGiris();
     }
 
