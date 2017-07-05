@@ -131,3 +131,15 @@
 /admin/controller/senkronizasyon/option.php
 /admin/controller/senkronizasyon/attributegroup.php
 /admin/controller/senkronizasyon/filitre.php
+!/admin/view/javascript/admin_tasarla/jquery-ui-rotatable-master/
+/admin/view/javascript/admin_tasarla/jquery-ui-rotatable-master/
+!/admin/view/javascript/admin_tasarla/
+/admin/view/javascript/admin_tasarla/jquery-ui.css
+/admin/view/javascript/admin_tasarla/content_render_admin.js
+/admin/view/javascript/admin_tasarla/resim_ekleme_admin.js
+/admin/view/javascript/admin_tasarla/admin_tasarla.js
+/admin/view/javascript/admin_tasarla/curve_text.js
+/admin/view/javascript/admin_tasarla/jquery-ui.js
+/admin/view/javascript/admin_tasarla/kirpici_admin.js
+/admin/view/javascript/admin_tasarla/jquery.ui.touch-punch.min.js
+/admin/view/javascript/admin_tasarla/siparis_text_duzenle.js

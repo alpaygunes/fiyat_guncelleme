@@ -54,7 +54,7 @@
   <!--   content render için -->
   <script type="text/javascript" src="view/javascript/admin_tasarla/content_render_admin.js"></script>
   <script type="text/javascript" src="view/javascript/admin_tasarla/kirpici_admin.js"></script>
-  <script type="text/javascript" src="view/javascript/admin_tasarla/resim_ekleme_admin.js"></script>
+  <script type="text/javascript" src="view/javascript/admin_tasarla/resim_ekleme_ortakpanel.js"></script>
   <script type="text/javascript" src="view/javascript/admin_tasarla/siparis_text_duzenle.js"></script>
 
 
