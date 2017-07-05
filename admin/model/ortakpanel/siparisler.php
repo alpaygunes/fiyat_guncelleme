@@ -248,6 +248,15 @@ class ModelOrtakpanelSiparisler extends Model
         $data = preg_replace("/^$bom/", '', $data);
         $data = preg_replace("/^$bom/", '', $data);
         $data = json_decode($data,TRUE);
+        $data = json_decode($data,TRUE);
+
+        foreach ($data as $key=>$value){
+            if($value['tur']=='resim_yer_tutucu'){
+                $data[$key]['orjinal_resim_url'] = $gets["siparis_sitesi"].$value['orjinal_resim_url'];
+            }
+        }
+
+        $data = json_encode($data,TRUE);
         return $data;
     }
 
