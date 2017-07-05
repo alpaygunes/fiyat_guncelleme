@@ -227,5 +227,11 @@ class ControllerOrtakpanelSiparisler extends Controller
 
         $this->response->setOutput($this->load->view('ortakpanel/viewtasarim.tpl', $data));
     }
+
+    function getTasarimImage(){
+        $this->load->model('ortakpanel/siparisler');
+        $image = $this->model_ortakpanel_siparisler->getTasarimImage($this->request->get);
+        $this->response->setOutput($image);
+    }
 }
 

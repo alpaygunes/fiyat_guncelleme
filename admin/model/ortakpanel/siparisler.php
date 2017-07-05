@@ -252,7 +252,8 @@ class ModelOrtakpanelSiparisler extends Model
 
         foreach ($data as $key=>$value){
             if($value['tur']=='resim_yer_tutucu'){
-                $data[$key]['orjinal_resim_url'] = $gets["siparis_sitesi"].$value['orjinal_resim_url'];
+                $data[$key]['orjinal_resim_url'] = 'index.php?route=ortakpanel/siparisler/getTasarimImage&siparis_sitesi='
+                                                    .$gets["siparis_sitesi"].'&token='.$this->session->data['token'].'&orjinal_resim_url='.$value['orjinal_resim_url'];
             }
         }
 
@@ -288,5 +289,15 @@ class ModelOrtakpanelSiparisler extends Model
         }
         return $ret;
 
+    }
+
+    function getTasarimImage($gets){
+        $bayi_sitesi    = $gets["siparis_sitesi"].'/'.$gets["orjinal_resim_url"];
+        $ch             = curl_init();
+        curl_setopt($ch, CURLOPT_URL,$bayi_sitesi);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $data           = curl_exec($ch);
+        curl_close($ch);
+        return $data;
     }
 }
