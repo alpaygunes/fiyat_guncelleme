@@ -143,3 +143,14 @@
 /admin/view/javascript/admin_tasarla/kirpici_admin.js
 /admin/view/javascript/admin_tasarla/jquery.ui.touch-punch.min.js
 /admin/view/javascript/admin_tasarla/siparis_text_duzenle.js
+!/admin/view/javascript/
+/admin/view/javascript/font-awesome/
+/admin/view/javascript/jquery-ui/
+/admin/view/javascript/ckeditor/
+/admin/view/javascript/summernote/
+/admin/view/javascript/bootstrap/
+/admin/view/javascript/color-picker/
+/admin/view/javascript/jquery/
+/admin/view/javascript/openbay/
+/admin/view/javascript/common.js
+/admin/view/javascript/admin_tasarla/farbtastic/
