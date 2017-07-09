@@ -26,6 +26,16 @@ class ControllerOrtakpanelSliderresimupload extends Controller
         $data['header']         = $this->load->controller('common/ortakpanel_header');
         $data['column_left']    = $this->load->controller('common/ortakpanel_left');
         $data['footer']         = $this->load->controller('common/ortakpanel_footer');
-        $this->response->setOutput($this->load->view('ortakpanel/slider_resim_upload.php', $data));
+        $this->response->setOutput($this->load->view('ortakpanel/slider_resim_upload.tpl', $data));
+    }
+
+    function uploadtobayi(){
+        $gets   = $this->request->get;
+        $posts  = $this->request->post;
+        $files  = $this->request->files;
+
+        $this->load->model('ortakpanel/sliderresimupload');
+        $sonuc = $this->model_ortakpanel_sliderresimupload->uploadtobayi($gets,$posts,$files);
+        //$this->response->setOutput($this->load->view('ortakpanel/siteler_list.tpl', $data));
     }
 }

@@ -1,6 +1,4 @@
 <?php echo $header; ?><?php echo $column_left; ?>
-
-
 	<div id="content">
 	<form id="myform"
 		  method="POST" enctype="multipart/form-data" class="form-horizontal">
@@ -128,6 +126,7 @@
             cache: false,
             contentType: false,
             processData: false,
+            crossDomain: true,
             type: 'POST',
             success: function(data){
                alert("Resimler gönderildi.");
