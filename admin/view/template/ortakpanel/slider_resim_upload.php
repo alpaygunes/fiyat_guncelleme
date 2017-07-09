@@ -36,47 +36,65 @@
 
 	  <table class="table table-bordered table-responsive">
 		  <tr>
-			  <td>Resim 0</td>
+			  <td>agslider0.jpg</td>
 			  <td>
 				  <input type="file" name="resim0" id="resim0">
 			  </td>  
 		  </tr>
 		  <tr>
-			  <td>Resim 1</td>
+			  <td>agslider2.jpg</td>
 			  <td>
 				  <input type="file" name="resim1" id="resim1">
 			  </td>
 		  </tr>
 		  <tr>
-			  <td>Resim 2</td>
+			  <td>agslider3.jpg</td>
 			  <td>
 				  <input type="file" name="resim2" id="resim2">
 			  </td>
 		  </tr>
 		  <tr>
-			  <td>Resim 3</td>
+			  <td>agslider4.jpg</td>
 			  <td>
 				  <input type="file" name="resim3" id="resim3">
 			  </td>
 		  </tr>
 		  <tr>
-			  <td>Resim 4</td>
+			  <td>agslider5.jpg</td>
 			  <td>
 				  <input type="file" name="resim4" id="resim4">
 			  </td>
 		  </tr>
 		  <tr>
-			  <td>Resim 5</td>
+			  <td>agslider6.jpg</td>
 			  <td>
 				  <input type="file" name="resim5" id="resim5">
 			  </td>
 		  </tr>
 		  <tr>
-			  <td>Resim 6</td>
+			  <td>agslider7.jpg</td>
 			  <td>
 				  <input type="file" name="resim6" id="resim6">
 			  </td> 
 		  </tr>
+          <tr>
+              <td>agslider8.jpg</td>
+              <td>
+                  <input type="file" name="resim6" id="resim6">
+              </td>
+          </tr>
+          <tr>
+              <td>agslider9.jpg</td>
+              <td>
+                  <input type="file" name="resim6" id="resim6">
+              </td>
+          </tr>
+          <tr>
+              <td>agslider10.jpg</td>
+              <td>
+                  <input type="file" name="resim6" id="resim6">
+              </td>
+          </tr>
 	  </table>
 
 
