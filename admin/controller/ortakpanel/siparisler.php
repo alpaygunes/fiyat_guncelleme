@@ -231,7 +231,28 @@ class ControllerOrtakpanelSiparisler extends Controller
     function getTasarimImage(){
         $this->load->model('ortakpanel/siparisler');
         $image = $this->model_ortakpanel_siparisler->getTasarimImage($this->request->get);
+
+        //uzantı
+        $orjinal_resim_url  = $this->request->get['orjinal_resim_url'];
+        $array = explode('.', $orjinal_resim_url);
+        $extension = end($array);
+
+        $this->response->addHeader("Content-Type: image/jpeg");
+        $this->response->addHeader("Content-Disposition: attachment; filename=".time().".jpg");
         $this->response->setOutput($image);
+
+    }
+
+    function siparisSil(){
+        $data           = array();
+        $this->load->model('ortakpanel/siparisler');
+        if (isset($this->request->get['order_id'])) {
+            $order_id   = $this->request->get['order_id'];
+        } else {
+            $order_id   = 0;
+        }
+        $data           = $this->model_ortakpanel_siparisler->siparisSil($this->request->get);
+        $this->response->setOutput($data);
     }
 }
 

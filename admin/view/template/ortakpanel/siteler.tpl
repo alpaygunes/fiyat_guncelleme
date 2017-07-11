@@ -12,7 +12,7 @@
 	</div>
   <div class="container-fluid">
 	<?php
-		print_r($ayarlar);
+		//print_r($ayarlar);
 	?>
 	  <div class="well">
 		  <div class="table-responsive">
@@ -31,7 +31,6 @@
 
 	  </div>
   </div>
-
 </div>
 
 <script language="JavaScript1.2">

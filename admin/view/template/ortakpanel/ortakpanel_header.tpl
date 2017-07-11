@@ -1,8 +1,3 @@
-<?php
-header("Access-Control-Allow-Origin '*' ");
-header("origin, x-requested-with, content-type");
-header( "Access-Control-Allow-Methods 'PUT, GET, POST, DELETE, OPTIONS'");
-?>
 <!DOCTYPE html>
 <html dir="<?php echo $direction; ?>" lang="<?php echo $lang; ?>">
 <head>

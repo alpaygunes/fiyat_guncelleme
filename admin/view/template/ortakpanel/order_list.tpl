@@ -355,6 +355,7 @@
         });*/
 
         $('button[id^=\'button-delete\']').on('click', function(e) {
+            url = 'index.php?route=ortakpanel/siparisler/siparis&token=<?php echo $token; ?>';
             if (confirm('<?php echo $text_confirm; ?>')) {
                 var node = this;
 

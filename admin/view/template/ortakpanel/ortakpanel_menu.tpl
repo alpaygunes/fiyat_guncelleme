@@ -15,6 +15,7 @@
       <li><a href="<?php echo $urunleri_dagit; ?>"><?php echo $text_urunleri_dagit;?></a></li>
       <li><a href="<?php echo $siteler; ?>"><?php echo $text_siteler;?></a></li>
       <li><a href="<?php echo $slider_resim_yukle; ?>"><?php echo $text_slider_resim_yukle;?></a></li>
+      <li><a href="<?php echo $araclar; ?>"><?php echo $text_araclar;?></a></li>
     </ul>
   </li>
 
