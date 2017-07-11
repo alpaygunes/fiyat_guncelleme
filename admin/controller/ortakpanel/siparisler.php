@@ -6,12 +6,13 @@ class ControllerOrtakpanelSiparisler extends Controller
 
     public function index()
     {
+
         $this->document->setTitle("Ortak Panel");
         $this->siparisleriCek();
     }
 
     function siparisleriCek(){
-        include ("sitelerArr.php");
+        //include ("sitelerArr.php");
         $this->load->model('ortakpanel/siteler');
         $siteler =  $this->model_ortakpanel_siteler->getSiteler();
 
@@ -116,7 +117,6 @@ class ControllerOrtakpanelSiparisler extends Controller
             $url .= '&filter_son_x_gun=' . $this->request->get['filter_son_x_gun'];
             $data['filter_son_x_gun']   =  $this->request->get['filter_son_x_gun'];
         }
-
 
         $start   = ($page - 1) * $this->config->get('config_limit_admin');
         $limit   = $this->config->get('config_limit_admin');
@@ -251,8 +251,10 @@ class ControllerOrtakpanelSiparisler extends Controller
         } else {
             $order_id   = 0;
         }
+
         $data           = $this->model_ortakpanel_siparisler->siparisSil($this->request->get);
-        $this->response->setOutput($data);
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($data));
     }
 }
 

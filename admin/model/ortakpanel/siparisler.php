@@ -14,8 +14,8 @@ class ModelOrtakpanelSiparisler extends Model
                 }
             }
         }
-        $url_eki        = "/index.php?route=ortakpanel_bayi/order/&yeni_token=".$this->session->data['token'];
-        $url_eki        .=$rqst;
+        $url_eki            = "/index.php?route=ortakpanel_bayi/order/&yeni_token=".$this->session->data['token'];
+        $url_eki            .=$rqst;
         $data1['orders']    = array();
         $data               = array();
         foreach ($siteler as $site){
@@ -302,8 +302,6 @@ class ModelOrtakpanelSiparisler extends Model
     }
 
     function siparisSil($gets){
-        buraya ctrl p yap devam et
-
         //gelen GET leri bayi siteye göndermek içn düzenle
         $rqst   = "";
         foreach ($gets as $key=>$value){
@@ -315,7 +313,7 @@ class ModelOrtakpanelSiparisler extends Model
                 }
             }
         }
-        $url_eki        = "index.php?route=ortakpanel_bayi/order/edit&yeni_token=".$this->session->data['token'];
+        $url_eki        = "index.php?route=ortakpanel_bayi/apiorder/delete&yeni_token=".$this->session->data['token'];
         $url_eki        .=$rqst;
         $bayi_sitesi    = $gets["siparis_sitesi"];
         $ch         = curl_init();

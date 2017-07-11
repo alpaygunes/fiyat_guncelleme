@@ -353,14 +353,19 @@
                 }
             });
         });*/
-
         $('button[id^=\'button-delete\']').on('click', function(e) {
-            url = 'index.php?route=ortakpanel/siparisler/siparis&token=<?php echo $token; ?>';
+            order_id        = $(this).val();
+            siparis_sitesi  = $(this).attr('siparis_sitesi');
+            url             ='index.php?route=ortakpanel/siparisler/siparisSil&token=<?php echo $token; ?>'
+                            +'&siparis_sitesi='+siparis_sitesi
+                            +'&order_id=' + order_id;
+            //orjinal_url     ='index.php?route=api/order/delete&token=' + '<?php echo $token;?>'
+            //                    + '&order_id=' + order_id
             if (confirm('<?php echo $text_confirm; ?>')) {
                 var node = this;
-
                 $.ajax({
-                    url: '<?php echo $store; ?>index.php?route=api/order/delete&token=' + token + '&order_id=' + $(node).val(),
+                    //url: '<?php echo $store; ?>index.php?route=api/order/delete&token=' + token + '&order_id=' + $(node).val(),
+                    url:url,
                     dataType: 'json',
                     crossDomain: true,
                     beforeSend: function() {
