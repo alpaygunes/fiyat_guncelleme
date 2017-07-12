@@ -64,6 +64,26 @@
         deger = $(this).val();
         if(deger<20){
             $(this).val(20);
+        }else{
+            //silmek için ajax
+            son_x_gun		= $('#son-x-gun').val();
+            $.ajax({
+                url: 'index.php?route=ortakpanel/araclar/tasarimlariTemizle&token=<?php echo $token; ?>&son_x_gun='+son_x_gun,
+                beforeSend: function(){
+                    $('#temizle').empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>').attr('disabled','disabled');
+                },
+                type: 'get',
+                dataType: 'html',
+                success: function(json) {
+                     console.log(json);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    if (xhr.status != 0) { alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText); }
+                    $('#temizle').empty().html('<span><?php echo $button_submit; ?></span>').removeAttr('disabled');
+                }
+            });
         }
     })
+
+
 </script>

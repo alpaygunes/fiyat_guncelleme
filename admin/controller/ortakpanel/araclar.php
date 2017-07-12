@@ -32,4 +32,17 @@ class ControllerOrtakpanelAraclar extends Controller
         $this->response->setOutput($this->load->view('ortakpanel/araclar.tpl', $data));
     }
 
+    public function tasarimlariTemizle(){
+        $son_x_gun      = $this->request->get['son_x_gun'];
+
+        $this->load->model('ortakpanel/araclar');
+        $this->load->model('ortakpanel/siteler');
+
+        $siteler    =   $this->model_ortakpanel_siteler->getSiteler();
+        $result     =   $this->model_ortakpanel_araclar->tasarimlariTemizle($siteler,$son_x_gun);
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($result));
+    }
+
 }
