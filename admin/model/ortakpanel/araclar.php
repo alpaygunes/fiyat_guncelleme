@@ -15,5 +15,4 @@ class ModelOrtakpanelAraclar extends Model
         }
         return $silme_sonuclari;
     }
-
 }
