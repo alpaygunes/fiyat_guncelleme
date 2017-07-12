@@ -22,13 +22,14 @@
 							   id="son-x-gun"  class="form-control"
 							   placeholder="Son X gün den öncekileri sil.">
 					</div>
+					<div class="label label-danger">Son siparişlerin tasarımlarını almadan denemeyin !</div>
 					<div class="btn btn-primary pull-right"  id="temizle">Temizle</div>
 				</div>
 			</div>
 		</div>
-		<div id="liste-yertutucu">
+	</div>
+	<div id="liste-yertutucu" class="row table-responsive">
 
-		</div>
 	</div>
 
 </div>
@@ -55,15 +56,15 @@
 
     $('#son-x-gun').change(function () {
         deger = $(this).val();
-        if(deger<20){
-            $(this).val(20);
+        if(deger<10){
+            $(this).val(10);
         }
     })
 
     $('#temizle').click(function () {
         deger = $(this).val();
-        if(deger<20){
-            $(this).val(20);
+        if(deger<10){
+            $(this).val(10);
         }else{
             //silmek için ajax
             son_x_gun		= $('#son-x-gun').val();
@@ -73,9 +74,18 @@
                     $('#temizle').empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>').attr('disabled','disabled');
                 },
                 type: 'get',
-                dataType: 'html',
+                dataType: 'json',
+				complete: function () {
+                    $('#temizle').empty().html('Temizle').removeAttr('disabled');
+                },
                 success: function(json) {
-                     console.log(json);
+                    $('#liste-yertutucu').empty();
+                    $.each(json, function( index, value ) {
+                        console.log( index + ": " + value);
+                        $('#liste-yertutucu').append('<div class="sonuc-li">'
+							+value[0]+'<span class="pull-right"> Silinen kayıt sayısı : '+value[1]+'</span></div>');
+
+                    });
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     if (xhr.status != 0) { alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText); }
@@ -87,3 +97,24 @@
 
 
 </script>
+
+
+<style>
+	.sonuc-li{
+		border:1px;
+		margin: 2px;
+		border: 1px solid #ccc;
+		margin-left: 50px;
+		padding: 3px;
+		width: 400px;
+	}
+
+	.sonuc-li span{
+		font-size: 14px;
+
+	}
+
+	.liste-yertutucu{
+
+	}
+</style>
