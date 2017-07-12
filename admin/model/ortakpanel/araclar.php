@@ -10,7 +10,12 @@ class ModelOrtakpanelAraclar extends Model
             $ch             = curl_init();
             curl_setopt($ch, CURLOPT_URL,$url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $silme_sonuclari[]   = array($site['site_url'],curl_exec($ch));
+            $cevap               = curl_exec($ch);
+            if(strlen($cevap)>20){
+                $cevap = 'hata';
+            }
+            $silme_sonuclari[]   = array($site['site_url'],$cevap);
+
             curl_close($ch);
         }
         return $silme_sonuclari;
