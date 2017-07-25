@@ -218,12 +218,12 @@ class ControllerOrtakpanelSiparisler extends Controller
 
     function getTasarimById(){
 
-        $data           = array();
+        $data                   = array();
         $this->load->model('ortakpanel/siparisler');
-        $data['iceriklerArr'] = $this->model_ortakpanel_siparisler->getTasarimById($this->request->get);
-        $data['header'] = $this->load->controller('common/ortakpanel_header');
-        $data['column_left'] = $this->load->controller('common/ortakpanel_left');
-        $data['footer'] = $this->load->controller('common/ortakpanel_footer');
+        $data['iceriklerArr']   = $this->model_ortakpanel_siparisler->getTasarimById($this->request->get);
+        $data['header']         = $this->load->controller('common/ortakpanel_header');
+        $data['column_left']    = $this->load->controller('common/ortakpanel_left');
+        $data['footer']         = $this->load->controller('common/ortakpanel_footer');
 
         $this->response->setOutput($this->load->view('ortakpanel/viewtasarim.tpl', $data));
     }
