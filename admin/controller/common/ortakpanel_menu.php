@@ -8,7 +8,7 @@ class ControllerCommonOrtakpanelMenu extends Controller {
         $data['text_slider_resim_yukle']    = "Slider Resim Yükleme";
         $data['text_araclar']           = "Çeşitli araçlar";
 
-        $data['siparis_listele']    = $this->url->link('ortakpanel/siparisler', 'token=' . $this->session->data['token'], 'SSL');
+        $data['siparis_listele']    = $this->url->link('ortakpanel/siparisler', 'token=' . $this->session->data['token'].'&filter_son_x_gun=2', 'SSL');
         $data['fiyat_guncelle']     = $this->url->link('ortakpanel/fiyatguncelle', 'token=' . $this->session->data['token'], 'SSL');
         $data['urunleri_dagit']     = $this->url->link('senkronizasyon/start', 'token=' . $this->session->data['token'], 'SSL');
         $data['siteler']            = $this->url->link('ortakpanel/siteler', 'token=' . $this->session->data['token'], 'SSL');
