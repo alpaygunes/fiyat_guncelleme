@@ -169,7 +169,7 @@ class ControllerOrtakpanelSiparisler extends Controller
         if($this->request->get['sablon_adi']){
             $sablon                 = $this->request->get['sablon_adi'];
         }else{
-            $sablon = "order_invoice0.tpl";
+            $sablon = "menu.tpl";
             // fatura dizinindeki dosya sayılarve isimleri
             // $this->config->get('theme_path');
             $fatura_sablon_yolu = DIR_APPLICATION."view/template/ortakpanel/faturalar";
