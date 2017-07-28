@@ -25,6 +25,29 @@
            </div>
        </div>
 
+       <?php
+       //var_dump($orders[0]['total']);
+       function tofloat($num) {
+           $dotPos = strrpos($num, '.');
+           $commaPos = strrpos($num, ',');
+           $sep = (($dotPos > $commaPos) && $dotPos) ? $dotPos :
+               ((($commaPos > $dotPos) && $commaPos) ? $commaPos : false);
+           if (!$sep) {
+               return floatval(preg_replace("/[^0-9]/", "", $num));
+           }
+
+           return floatval(
+               preg_replace("/[^0-9]/", "", substr($num, 0, $sep)) . '.' .
+               preg_replace("/[^0-9]/", "", substr($num, $sep+1, strlen($num)))
+           );
+       }
+
+       $toplam     = tofloat($orders[0]['total'][count($orders[0]['total'])-1]['text']);
+       $atoplam     = $toplam/1.08;
+       $kdv         = round($atoplam*0.08,2);
+       $toplam      = round($toplam,2);
+       ?>
+
        <div class="altbolum">
            <table style="width: 100%">
                <?php foreach ($orders[0]['product'] as $product) { ?>
@@ -32,34 +55,12 @@
                        <td style="width: 250px"> HEDİYELİK EŞYA </td>
                        <td style="width: 20px">8</td>
                        <td style="width: 30px;text-align: right">1</td>
-                       <td style="width: 100px;text-align: right"><?php echo $product['price']; ?></td>
-                       <td style="width: 100px;text-align: right"><?php echo $product['total']; ?></td>
+                       <td style="width: 100px;text-align: right"><?php echo number_format($atoplam, 2, ',', '.').' TL'; ?></td>
+                       <td style="width: 100px;text-align: right"><?php echo number_format($atoplam, 2, ',', '.').' TL'; ?></td>
                    </tr>
-               <?php } ?>
+               <?php  break;
+               } ?>
            </table>
-
-           <?php
-               function tofloat($num) {
-                   $dotPos = strrpos($num, '.');
-                   $commaPos = strrpos($num, ',');
-                   $sep = (($dotPos > $commaPos) && $dotPos) ? $dotPos :
-                       ((($commaPos > $dotPos) && $commaPos) ? $commaPos : false);
-
-                   if (!$sep) {
-                       return floatval(preg_replace("/[^0-9]/", "", $num));
-                   }
-
-                   return floatval(
-                       preg_replace("/[^0-9]/", "", substr($num, 0, $sep)) . '.' .
-                       preg_replace("/[^0-9]/", "", substr($num, $sep+1, strlen($num)))
-                   );
-               }
-
-                $toplam  = tofloat($orders[0]['total'][4]['text']);
-                $atoplam = round($toplam/1.08,2);
-                $kdv     = round($atoplam*0.08,2);
-           ?>
-
 
            <table style="width:100%;
            text-align: right;
@@ -67,15 +68,15 @@
             bottom: 0">
                <tr>
                    <td><?php echo "A.TOPLAM";?></td>
-                   <td><?php echo $atoplam;?></td>
+                   <td><?php echo number_format($atoplam, 2, ',', '.').' TL';?></td>
                </tr>
                <tr>
                    <td>KDV</td>
-                   <td><?php echo $kdv;?></td>
+                   <td><?php echo number_format($kdv, 2, ',', '.').' TL';?></td>
                </tr>
                <tr>
                    <td>G.TOPLAM</td>
-                   <td><?php  echo $toplam;?></td>
+                   <td><?php  echo number_format($toplam, 2, ',', '.').' TL';?></td>
                </tr>
            </table>
        </div>
