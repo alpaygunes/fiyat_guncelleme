@@ -147,11 +147,11 @@ class ControllerOrtakpanelSiparisler extends Controller
         } else {
             $order_id = 0;
         }
-        $data = $this->model_ortakpanel_siparisler->info($this->request->get);
+        $data                   = $this->model_ortakpanel_siparisler->info($this->request->get);
 
-        $data['header'] = $this->load->controller('common/ortakpanel_header');
-        $data['column_left'] = $this->load->controller('common/ortakpanel_left');
-        $data['footer'] = $this->load->controller('common/ortakpanel_footer');
+        $data['header']         = $this->load->controller('common/ortakpanel_header');
+        $data['column_left']    = $this->load->controller('common/ortakpanel_left');
+        $data['footer']         = $this->load->controller('common/ortakpanel_footer');
 
         $this->response->setOutput($this->load->view('ortakpanel/order_info.tpl', $data));
     }

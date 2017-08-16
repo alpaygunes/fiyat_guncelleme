@@ -87,6 +87,7 @@ class ModelOrtakpanelSiparisler extends Model
             if($key!='route'){
                 if($key!='token'){
                     if($key!='siparis_sitesi'){
+                        $value = str_replace ( ' ', '+',$value);
                         $rqst .= "&$key=$value";
                     }
                 }
